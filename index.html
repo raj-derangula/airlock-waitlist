@@ -217,74 +217,94 @@
     animation: fadeUp 0.6s ease forwards 1s;
   }
  
-  /* ---- REPLACE THIS SECTION WITH YOUR TALLY EMBED ---- */
-  .tally-placeholder {
+  .waitlist-form {
     border: 1px solid rgba(204,0,0,0.3);
     background: rgba(13,13,16,0.8);
     padding: 2.5rem 2rem;
-    text-align: center;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-dim);
-    letter-spacing: 0.05em;
   }
- 
-  .tally-placeholder .form-title {
+
+  .form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(204,0,0,0.15);
+  }
+
+  .form-title {
     font-family: var(--display);
     font-size: 28px;
     letter-spacing: 0.1em;
     color: var(--text);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
   }
- 
-  .tally-placeholder p {
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-  }
- 
-  .tally-placeholder input {
-    width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(204,0,0,0.3);
-    color: var(--text);
+
+  .form-subtitle {
     font-family: var(--mono);
-    font-size: 13px;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.75rem;
-    outline: none;
-    letter-spacing: 0.05em;
-    transition: border-color 0.2s;
-  }
- 
-  .tally-placeholder input:focus {
-    border-color: var(--red);
-  }
- 
-  .tally-placeholder input::placeholder {
+    font-size: 11px;
     color: var(--text-dim);
+    letter-spacing: 0.15em;
   }
- 
-  .tally-placeholder select {
+
+  .form-group {
+    margin-bottom: 1.25rem;
+    text-align: left;
+  }
+
+  .form-group label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .form-group input,
+  .form-group select {
     width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(204,0,0,0.3);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(204,0,0,0.25);
     color: var(--text);
     font-family: var(--mono);
     font-size: 13px;
     padding: 0.75rem 1rem;
-    margin-bottom: 1.25rem;
     outline: none;
     letter-spacing: 0.05em;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--red);
+    background: rgba(204,0,0,0.04);
+  }
+
+  .form-group input::placeholder {
+    color: var(--text-dim);
+    opacity: 1;
+  }
+
+  .form-group select {
     cursor: pointer;
     appearance: none;
     -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6' fill='%23cc0000' opacity='0.7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-color: rgba(255,255,255,0.03);
+    padding-right: 2.5rem;
   }
- 
-  .tally-placeholder select option {
+
+  .form-group select option {
     background: #0d0d10;
     color: var(--text);
   }
- 
+
+  .form-group:last-of-type {
+    margin-bottom: 1.75rem;
+  }
+
   .submit-btn {
     width: 100%;
     background: var(--red);
@@ -297,22 +317,9 @@
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
   }
- 
+
   .submit-btn:hover { background: #aa0000; }
   .submit-btn:active { transform: scale(0.99); }
- 
-  .success-msg {
-    display: none;
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--red);
-    letter-spacing: 0.1em;
-    padding: 1rem;
-    border: 1px solid rgba(204,0,0,0.4);
-    margin-top: 1rem;
-    text-align: center;
-  }
-  /* ---- END PLACEHOLDER FORM ---- */
  
   .bottom-info {
     font-family: var(--mono);
@@ -412,16 +419,20 @@
     <div class="tally-container">
       
     <form method="POST" action="https://formspree.io/f/xeerkroz" class="waitlist-form">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+      <div class="form-header">
+        <div class="form-title">REQUEST ACCESS</div>
+        <div class="form-subtitle">// ENTER CREDENTIALS FOR CLEARANCE</div>
       </div>
       <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
+        <label for="email">// Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
       </div>
       <div class="form-group">
-        <label for="platform">Preferred Platform</label>
+        <label for="name">// Call Sign</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="form-group">
+        <label for="platform">// Primary Distraction</label>
         <select id="platform" name="platform" required>
           <option value="">Select a platform...</option>
           <option value="Instagram">Instagram</option>
@@ -430,7 +441,7 @@
           <option value="Discord">Discord</option>
         </select>
       </div>
-      <button type="submit" class="submit-btn">Join Waitlist</button>
+      <button type="submit" class="submit-btn">Request Clearance</button>
     </form>
        </div>
   
@@ -495,15 +506,6 @@
   window.addEventListener('resize', () => { resize(); initStars(); });
 })();
  
-function handleSubmit() {
-  const name = document.getElementById('f-name').value.trim();
-  const email = document.getElementById('f-email').value.trim();
-  const app = document.getElementById('f-app').value;
- 
-  if (!name || !email || !app) {
-    alert('// ALL FIELDS REQUIRED FOR CLEARANCE');
-    return;
-  }
  
   // TODO: Replace this with your real Tally form URL or ManyChat link
   // For now it shows success message
