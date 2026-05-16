@@ -9,7 +9,7 @@
 
   html, body {
     min-height: 100vh;
-    background: #F5F5F5;
+    background: #F2F2F7;
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
     color: #1A1A1A;
   }
@@ -19,66 +19,90 @@
     min-height: 100vh;
   }
 
+  /* ── Left column ── */
   .col-left {
     width: 50%;
+    padding: 72px 64px 72px 80px;
     display: flex;
-    align-items: center;
-    padding: 60px 80px;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  .col-left-inner {
-    max-width: 520px;
-    width: 100%;
+  /* App name row */
+  .app-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .app-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #A8243C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .app-icon svg {
+    width: 26px;
+    height: 26px;
   }
 
   .app-name {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 600;
     color: #1A1A1A;
-    letter-spacing: 0;
+    letter-spacing: -0.3px;
   }
 
+  /* Headline */
   .headline {
-    font-size: 52px;
-    font-weight: 700;
+    font-size: 64px;
+    font-weight: 800;
     color: #1A1A1A;
-    letter-spacing: -1px;
-    line-height: 1.1;
-    max-width: 480px;
-    margin-top: 16px;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 20px;
   }
 
+  /* Subheadline */
   .subheadline {
     font-size: 18px;
     font-weight: 400;
     color: #6B6B6B;
     max-width: 420px;
-    margin-top: 16px;
-    line-height: 1.5;
+    line-height: 1.55;
+    margin-bottom: 36px;
   }
 
+  /* Form */
   .form-row {
     display: flex;
     gap: 8px;
-    margin-top: 32px;
+    max-width: 480px;
   }
 
   .email-input {
     flex: 1;
     height: 52px;
     background: #fff;
-    border: 1px solid #D1D1D1;
-    border-radius: 8px;
-    padding: 0 16px;
+    border: 1.5px solid #E0E0E0;
+    border-radius: 10px;
+    padding: 0 18px;
     font-size: 15px;
     font-family: inherit;
     color: #1A1A1A;
     outline: none;
     transition: border-color 0.15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
 
   .email-input::placeholder {
-    color: #AEAEB2;
+    color: #B0B0B8;
   }
 
   .email-input:focus {
@@ -90,26 +114,31 @@
     background: #A8243C;
     color: #fff;
     border: none;
-    border-radius: 8px;
-    padding: 0 24px;
+    border-radius: 10px;
+    padding: 0 26px;
     font-size: 15px;
     font-weight: 600;
     font-family: inherit;
     cursor: pointer;
     white-space: nowrap;
     transition: background 0.15s;
+    box-shadow: 0 1px 3px rgba(168,36,60,0.25);
   }
 
   .submit-btn:hover {
     background: #8f1e33;
   }
 
+  /* Below-form links */
   .follow-link {
-    display: block;
-    margin-top: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 18px;
     font-size: 14px;
     color: #6B6B6B;
     text-decoration: none;
+    transition: color 0.15s;
   }
 
   .follow-link:hover {
@@ -123,12 +152,13 @@
     color: #AEAEB2;
   }
 
+  /* ── Right column ── */
   .col-right {
     width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    padding: 48px 48px 48px 24px;
   }
 
   .mockup-img {
@@ -137,6 +167,7 @@
     object-fit: contain;
   }
 
+  /* ── Mobile ── */
   @media (max-width: 768px) {
     .layout {
       flex-direction: column;
@@ -144,21 +175,22 @@
 
     .col-left {
       width: 100%;
-      padding: 48px 24px 32px;
-    }
-
-    .col-left-inner {
-      max-width: 100%;
+      padding: 56px 28px 36px;
+      justify-content: flex-start;
     }
 
     .headline {
-      font-size: 36px;
+      font-size: 40px;
+      letter-spacing: -1.5px;
+    }
+
+    .form-row {
+      max-width: 100%;
     }
 
     .col-right {
       width: 100%;
-      padding: 0 24px 48px;
-      justify-content: center;
+      padding: 0 28px 56px;
     }
 
     .mockup-img {
@@ -170,30 +202,47 @@
 <body>
 
 <div class="layout">
+
   <div class="col-left">
-    <div class="col-left-inner">
+
+    <div class="app-row">
+      <div class="app-icon">
+        <!-- Simple lock/airlock icon -->
+        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="11" width="16" height="12" rx="2.5" fill="white"/>
+          <path d="M9 11V8.5C9 6.015 10.567 4 13 4C15.433 4 17 6.015 17 8.5V11" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <circle cx="13" cy="17" r="2" fill="#A8243C"/>
+        </svg>
+      </div>
       <span class="app-name">Airlock</span>
-
-      <h1 class="headline">The focus app built for creators.</h1>
-
-      <p class="subheadline">Open Instagram with a purpose. Set your mission, track your focus, and actually do what you came to do.</p>
-
-      <form method="POST" action="https://formspree.io/f/xeerkroz">
-        <input type="hidden" name="source" id="utm-source" value="">
-        <div class="form-row">
-          <input class="email-input" type="email" id="email" name="email" placeholder="Enter your email" required>
-          <button type="submit" class="submit-btn">Join waitlist</button>
-        </div>
-      </form>
-
-      <a class="follow-link" href="https://tiktok.com/@rajderangula_" target="_blank" rel="noopener noreferrer">Follow @rajderangula_ for updates ↗</a>
-      <span class="coming-soon">iOS only · Coming June 2025</span>
     </div>
+
+    <h1 class="headline">The focus app<br>built for creators.</h1>
+
+    <p class="subheadline">Open Instagram with a purpose. Set your mission, track your focus, and actually do what you came to do.</p>
+
+    <form method="POST" action="https://formspree.io/f/xeerkroz">
+      <input type="hidden" name="source" id="utm-source" value="">
+      <div class="form-row">
+        <input class="email-input" type="email" id="email" name="email" placeholder="Enter your email" required>
+        <button type="submit" class="submit-btn">Join waitlist</button>
+      </div>
+    </form>
+
+    <a class="follow-link" href="https://tiktok.com/@rajderangula_" target="_blank" rel="noopener noreferrer">
+      Follow @rajderangula_ for updates
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.5 10.5L10.5 2.5M10.5 2.5H5.5M10.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <span class="coming-soon">iOS only · Coming June 2025</span>
+
   </div>
 
   <div class="col-right">
     <img class="mockup-img" src="mockup.png" alt="Airlock app mockup">
   </div>
+
 </div>
 
 <script>
