@@ -15,12 +15,15 @@
     background: #F8F8F8;
     font-family: 'Inter', sans-serif;
     color: #1A1A1A;
+    overflow-x: hidden;
   }
 
   .layout {
     display: flex;
     min-height: 100vh;
     align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
   }
 
   /* ── Left column ── */
@@ -152,9 +155,10 @@
   .mockup-frame {
     border: none;
     background: transparent;
-    width: 340px;
-    height: 680px;
+    width: 320px;
+    height: 658px;
     flex-shrink: 0;
+    display: block;
   }
 
   /* ── Mobile ── */
@@ -186,12 +190,13 @@
 
     .col-right {
       width: 100%;
-      padding: 0 28px 56px;
+      padding: 0 0 56px;
+      justify-content: center;
     }
 
     .mockup-frame {
-      width: 260px;
-      height: 520px;
+      width: 308px;
+      height: 650px;
     }
   }
 </style>
