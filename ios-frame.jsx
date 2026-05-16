@@ -1,7 +1,7 @@
 // IOSDevice — scales a 390×844 screen to TARGET_HEIGHT, draws phone chrome around it
 function IOSDevice({ width = 390, height = 844, children }) {
-  const BEZEL = 14;
-  const CORNER_R = 54;
+  const BEZEL = 10;
+  const CORNER_R = 58;
   const TARGET_HEIGHT = 640;
 
   const deviceW = width + BEZEL * 2;
@@ -13,8 +13,8 @@ function IOSDevice({ width = 390, height = 844, children }) {
       width: Math.round(deviceW * s),
       height: TARGET_HEIGHT,
       borderRadius: CORNER_R * s,
-      background: '#1C1C1E',
-      boxShadow: '0 0 0 1px #3A3A3A, 0 40px 100px rgba(0,0,0,0.45)',
+      background: '#2A2A2A',
+      boxShadow: 'none',
       padding: BEZEL * s,
       position: 'relative',
       flexShrink: 0,

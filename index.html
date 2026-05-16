@@ -4,19 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Airlock — The focus app built for creators.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   html, body {
     min-height: 100vh;
-    background: #F2F2F7;
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    background: #F5F5F5;
+    font-family: 'Inter', sans-serif;
     color: #1A1A1A;
   }
 
   .layout {
     display: flex;
     min-height: 100vh;
+    align-items: center;
   }
 
   /* ── Left column ── */
@@ -28,40 +32,24 @@
     justify-content: center;
   }
 
-  /* App name row */
-  .app-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 36px;
-  }
-
-  .app-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background: #A8243C;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .app-icon svg {
-    width: 26px;
-    height: 26px;
-  }
-
+  /* App name */
   .app-name {
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 600;
     color: #1A1A1A;
-    letter-spacing: -0.3px;
+    margin-bottom: 36px;
+    display: block;
+  }
+
+  /* Mockup drop-shadow wrapper */
+  .mockup-wrapper {
+    filter: drop-shadow(0 24px 48px rgba(0,0,0,0.12));
+    flex-shrink: 0;
   }
 
   /* Headline */
   .headline {
-    font-size: 64px;
+    font-size: 48px;
     font-weight: 800;
     color: #1A1A1A;
     letter-spacing: -2px;
@@ -173,6 +161,7 @@
   @media (max-width: 768px) {
     .layout {
       flex-direction: column;
+      align-items: stretch;
     }
 
     .col-left {
@@ -182,12 +171,17 @@
     }
 
     .headline {
-      font-size: 40px;
+      font-size: 36px;
       letter-spacing: -1.5px;
     }
 
     .form-row {
       max-width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .submit-btn {
+      width: 100%;
     }
 
     .col-right {
@@ -208,17 +202,7 @@
 
   <div class="col-left">
 
-    <div class="app-row">
-      <div class="app-icon">
-        <!-- Simple lock/airlock icon -->
-        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="5" y="11" width="16" height="12" rx="2.5" fill="white"/>
-          <path d="M9 11V8.5C9 6.015 10.567 4 13 4C15.433 4 17 6.015 17 8.5V11" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-          <circle cx="13" cy="17" r="2" fill="#A8243C"/>
-        </svg>
-      </div>
-      <span class="app-name">Airlock</span>
-    </div>
+    <span class="app-name">Airlock</span>
 
     <h1 class="headline">The focus app<br>built for creators.</h1>
 
@@ -243,7 +227,9 @@
   </div>
 
   <div class="col-right">
-    <iframe class="mockup-frame" src="airlock-mockup.html" title="Airlock app mockup" allowtransparency="true" scrolling="no"></iframe>
+    <div class="mockup-wrapper">
+      <iframe class="mockup-frame" src="airlock-mockup.html" title="Airlock app mockup" allowtransparency="true" scrolling="no"></iframe>
+    </div>
   </div>
 
 </div>
