@@ -3,622 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIRLOCK — Enter the Chamber</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<title>Airlock — The focus app built for creators.</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
-  :root {
-    --red: #cc0000;
-    --red-dim: #880000;
-    --red-glow: rgba(204, 0, 0, 0.15);
-    --bg: #060608;
-    --bg2: #0d0d10;
-    --text: #e8e4dc;
-    --text-dim: #6b6660;
-    --mono: 'Share Tech Mono', monospace;
-    --display: 'Bebas Neue', sans-serif;
-    --body: 'Inter', sans-serif;
-  }
- 
+
   html, body {
     min-height: 100vh;
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--body);
-    overflow-x: hidden;
-  }
- 
-  canvas#stars {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
+    background: #F5F5F5;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    color: #1A1A1A;
   }
 
-  .nebula {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(ellipse 70vw 50vh at 15% 25%, rgba(140,0,0,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 50vw 70vh at 85% 75%, rgba(90,0,50,0.06) 0%, transparent 70%),
-      radial-gradient(ellipse 40vw 40vh at 55% 10%, rgba(0,20,80,0.05) 0%, transparent 70%);
-    animation: nebulaPulse 18s ease-in-out infinite alternate;
-  }
-
-  @keyframes nebulaPulse {
-    0%   { opacity: 0.6; transform: scale(1); }
-    50%  { opacity: 1;   transform: scale(1.03); }
-    100% { opacity: 0.7; transform: scale(1); }
-  }
- 
-  .scanlines {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 1;
-    pointer-events: none;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.08) 2px,
-      rgba(0,0,0,0.08) 4px
-    );
-  }
- 
-  .vignette {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 1;
-    pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%);
-  }
- 
-  main {
-    position: relative;
-    z-index: 2;
+  .layout {
+    display: flex;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 1.5rem;
   }
- 
-  .top-bar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 10;
+
+  .col-left {
+    width: 50%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid rgba(204,0,0,0.2);
-    background: rgba(6,6,8,0.8);
-    backdrop-filter: blur(8px);
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-dim);
-    letter-spacing: 0.1em;
+    padding: 60px 80px;
   }
- 
-  .top-bar .status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--red);
-  }
- 
-  .blink {
-    display: inline-block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--red);
-    animation: blink 1.2s step-start infinite;
-  }
- 
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
- 
-  .hero {
-    text-align: center;
-    max-width: 700px;
-    margin-top: 4rem;
-  }
- 
-  .system-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    color: var(--red);
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.2s;
-  }
- 
-  .logo {
-    font-family: var(--display);
-    font-size: clamp(80px, 18vw, 160px);
-    letter-spacing: 0.05em;
-    line-height: 1;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.4s;
-    position: relative;
-  }
- 
-  .logo::after {
-    content: 'AIRLOCK';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    color: var(--red);
-    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-    opacity: 0.4;
-  }
- 
-  .tagline {
-    font-family: var(--mono);
-    font-size: clamp(12px, 2vw, 15px);
-    color: var(--text-dim);
-    letter-spacing: 0.08em;
-    line-height: 1.8;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards 0.6s;
-  }
- 
-  .tagline span {
-    color: var(--text);
-  }
- 
-  .divider {
+
+  .col-left-inner {
+    max-width: 520px;
     width: 100%;
-    max-width: 500px;
-    margin: 0 auto 3rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.7s;
   }
- 
-  .divider::before, .divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(204,0,0,0.5), transparent);
+
+  .app-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1A1A1A;
+    letter-spacing: 0;
   }
- 
-  .divider-text {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--red);
-    white-space: nowrap;
-  }
- 
-  .warning-box {
-    border: 1px solid rgba(204,0,0,0.3);
-    background: rgba(204,0,0,0.05);
-    padding: 1rem 1.5rem;
-    max-width: 560px;
-    margin: 0 auto 2.5rem;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text-dim);
-    line-height: 1.8;
-    letter-spacing: 0.05em;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.8s;
-  }
- 
-  .warning-box strong {
-    color: var(--red);
-    font-weight: 400;
-  }
- 
-  .tally-container {
-    width: 100%;
+
+  .headline {
+    font-size: 52px;
+    font-weight: 700;
+    color: #1A1A1A;
+    letter-spacing: -1px;
+    line-height: 1.1;
     max-width: 480px;
-    margin: 0 auto 3rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 1s;
-    position: relative;
+    margin-top: 16px;
   }
 
-  .tally-container::before {
-    content: '';
-    position: absolute;
-    inset: -40px;
-    background: radial-gradient(ellipse at center, rgba(204,0,0,0.08) 0%, transparent 70%);
-    pointer-events: none;
-    animation: chamberGlow 4s ease-in-out infinite alternate;
-    z-index: -1;
+  .subheadline {
+    font-size: 18px;
+    font-weight: 400;
+    color: #6B6B6B;
+    max-width: 420px;
+    margin-top: 16px;
+    line-height: 1.5;
   }
 
-  @keyframes chamberGlow {
-    0%   { opacity: 0.5; transform: scale(0.95); }
-    100% { opacity: 1;   transform: scale(1.05); }
-  }
- 
-  .waitlist-form {
-    border: 1px solid rgba(204,0,0,0.3);
-    background: rgba(13,13,16,0.8);
-    padding: 2.5rem 2rem;
+  .form-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 32px;
   }
 
-  .form-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(204,0,0,0.15);
-  }
-
-  .form-title {
-    font-family: var(--display);
-    font-size: 28px;
-    letter-spacing: 0.1em;
-    color: var(--text);
-    margin-bottom: 0.4rem;
-  }
-
-  .form-subtitle {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-dim);
-    letter-spacing: 0.15em;
-  }
-
-  .form-group {
-    margin-bottom: 1.25rem;
-    text-align: left;
-  }
-
-  .form-group label {
-    display: block;
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--red);
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
-  }
-
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(204,0,0,0.25);
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 13px;
-    padding: 0.75rem 1rem;
+  .email-input {
+    flex: 1;
+    height: 52px;
+    background: #fff;
+    border: 1px solid #D1D1D1;
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #1A1A1A;
     outline: none;
-    letter-spacing: 0.05em;
-    transition: border-color 0.2s, background 0.2s;
+    transition: border-color 0.15s;
   }
 
-  .form-group input:focus,
-  .form-group select:focus {
-    border-color: var(--red);
-    background: rgba(204,0,0,0.04);
+  .email-input::placeholder {
+    color: #AEAEB2;
   }
 
-  .form-group input::placeholder {
-    color: var(--text-dim);
-    opacity: 1;
-  }
-
-  .form-group select {
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6' fill='%23cc0000' opacity='0.7'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-color: rgba(255,255,255,0.03);
-    padding-right: 2.5rem;
-  }
-
-  .form-group select option {
-    background: #0d0d10;
-    color: var(--text);
-  }
-
-  .form-group:last-of-type {
-    margin-bottom: 1.75rem;
+  .email-input:focus {
+    border-color: #A8243C;
   }
 
   .submit-btn {
-    width: 100%;
-    background: var(--red);
+    height: 52px;
+    background: #A8243C;
     color: #fff;
     border: none;
-    font-family: var(--display);
-    font-size: 22px;
-    letter-spacing: 0.15em;
-    padding: 0.85rem;
+    border-radius: 8px;
+    padding: 0 24px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
     cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+    transition: background 0.15s;
   }
 
-  .submit-btn:hover { background: #aa0000; }
-  .submit-btn:active { transform: scale(0.99); }
- 
-  .bottom-info {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-dim);
-    letter-spacing: 0.12em;
-    text-align: center;
-    line-height: 2;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 1.1s;
+  .submit-btn:hover {
+    background: #8f1e33;
   }
- 
-  .bottom-info a {
-    color: var(--red);
+
+  .follow-link {
+    display: block;
+    margin-top: 16px;
+    font-size: 14px;
+    color: #6B6B6B;
     text-decoration: none;
   }
- 
-  .pressure-bar {
-    width: 100%;
-    max-width: 480px;
-    margin: 1.5rem auto 0;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 1.2s;
+
+  .follow-link:hover {
+    color: #1A1A1A;
   }
- 
-  .pressure-label {
+
+  .coming-soon {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #AEAEB2;
+  }
+
+  .col-right {
+    width: 50%;
     display: flex;
-    justify-content: space-between;
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text-dim);
-    letter-spacing: 0.1em;
-    margin-bottom: 6px;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
   }
- 
-  .pressure-label span:last-child { color: var(--red); }
- 
-  .pressure-track {
+
+  .mockup-img {
+    max-height: 680px;
     width: 100%;
-    height: 3px;
-    background: rgba(255,255,255,0.06);
-    position: relative;
-    overflow: hidden;
+    object-fit: contain;
   }
- 
-  .pressure-fill {
-    height: 100%;
-    background: var(--red);
-    width: 0%;
-    animation: pressurize 2.5s ease forwards 1.5s;
-  }
- 
-  @keyframes pressurize {
-    0% { width: 0%; }
-    100% { width: 23%; }
-  }
- 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .layout {
+      flex-direction: column;
+    }
+
+    .col-left {
+      width: 100%;
+      padding: 48px 24px 32px;
+    }
+
+    .col-left-inner {
+      max-width: 100%;
+    }
+
+    .headline {
+      font-size: 36px;
+    }
+
+    .col-right {
+      width: 100%;
+      padding: 0 24px 48px;
+      justify-content: center;
+    }
+
+    .mockup-img {
+      max-height: 380px;
+    }
   }
 </style>
 </head>
 <body>
- 
-<canvas id="stars"></canvas>
-<div class="nebula"></div>
-<div class="scanlines"></div>
-<div class="vignette"></div>
- 
-<div class="top-bar">
-  <span>AIRLOCK // PRE-LAUNCH</span>
-  <span class="status"><span class="blink"></span> CHAMBER PRESSURIZING</span>
-  <span>SYS:NOMINAL</span>
-</div>
- 
-<main>
-  <div class="hero">
- 
-    <div class="system-label">// FOCUS INTERCEPTION SYSTEM v0.1</div>
- 
-    <div class="logo">AIRLOCK</div>
- 
-    <div class="tagline">
-      Every astronaut passes through an airlock before entering space.<br>
-      <span>You deserve the same barrier between distraction and deep work.</span>
+
+<div class="layout">
+  <div class="col-left">
+    <div class="col-left-inner">
+      <span class="app-name">Airlock</span>
+
+      <h1 class="headline">The focus app built for creators.</h1>
+
+      <p class="subheadline">Open Instagram with a purpose. Set your mission, track your focus, and actually do what you came to do.</p>
+
+      <form method="POST" action="https://formspree.io/f/xeerkroz">
+        <input type="hidden" name="source" id="utm-source" value="">
+        <div class="form-row">
+          <input class="email-input" type="email" id="email" name="email" placeholder="Enter your email" required>
+          <button type="submit" class="submit-btn">Join waitlist</button>
+        </div>
+      </form>
+
+      <a class="follow-link" href="https://tiktok.com/@rajderangula_" target="_blank" rel="noopener noreferrer">Follow @rajderangula_ for updates ↗</a>
+      <span class="coming-soon">iOS only · Coming June 2025</span>
     </div>
- 
-    <div class="divider"><span class="divider-text">// CLEARANCE REQUIRED //</span></div>
- 
-    <div class="warning-box">
-      <strong>// WARNING</strong><br>
-      Every app blocker on the market blocks your apps.<br>
-      None of them make you <strong>confront your mission first.</strong><br>
-      Airlock changes that. Enter your mission. Open your apps. Stay in orbit.
-    </div>
- 
-    <div class="tally-container">
-      
-    <form method="POST" action="https://formspree.io/f/xeerkroz" class="waitlist-form">
-      <div class="form-header">
-        <div class="form-title">REQUEST ACCESS</div>
-        <div class="form-subtitle">// ENTER CREDENTIALS FOR CLEARANCE</div>
-      </div>
-      <div class="form-group">
-        <label for="email">// Email</label>
-        <input type="email" id="email" name="email" placeholder="you@example.com" required>
-      </div>
-      <div class="form-group">
-        <label for="name">// Call Sign</label>
-        <input type="text" id="name" name="name" placeholder="Your name" required>
-      </div>
-      <div class="form-group">
-        <label for="platform">// Primary Distraction</label>
-        <select id="platform" name="platform" required>
-          <option value="">Select a platform...</option>
-          <option value="Instagram">Instagram</option>
-          <option value="TikTok">TikTok</option>
-          <option value="Twitter">Twitter</option>
-          <option value="Discord">Discord</option>
-        </select>
-      </div>
-      <button type="submit" class="submit-btn">Request Clearance</button>
-    </form>
-       </div>
-  
-    <div class="bottom-info">
-      iOS ONLY // DYNAMIC ISLAND REQUIRED // COMING SOON<br>
-      <a href="https://tiktok.com/@rajderangula_" target="_blank">@rajderangula_</a> &nbsp;·&nbsp; NO SPAM. EVER.
-    </div>
- 
-    <div class="pressure-bar">
-      <div class="pressure-label">
-        <span>CHAMBER CAPACITY</span>
-        <span id="pct">23% FILLED</span>
-      </div>
-      <div class="pressure-track">
-        <div class="pressure-fill"></div>
-      </div>
-    </div>
- 
   </div>
-</main>
- 
+
+  <div class="col-right">
+    <img class="mockup-img" src="mockup.png" alt="Airlock app mockup">
+  </div>
+</div>
+
 <script>
-(function() {
-  const canvas = document.getElementById('stars');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  let shooters = [];
-  let nextShoot = 3000;
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
-  function initStars() {
-    stars = [];
-    // Deep background: tiny, dim, fast twinkle
-    for (let i = 0; i < 160; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: 0.2 + Math.random() * 0.5,
-        a: Math.random() * Math.PI * 2,
-        speed: 0.005 + Math.random() * 0.006,
-        rgb: Math.random() > 0.9 ? '200,140,140' : '232,228,220'
-      });
-    }
-    // Midground: medium, moderate twinkle
-    for (let i = 0; i < 50; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: 0.6 + Math.random() * 0.6,
-        a: Math.random() * Math.PI * 2,
-        speed: 0.002 + Math.random() * 0.003,
-        rgb: Math.random() > 0.75 ? '210,160,160' : '232,228,220'
-      });
-    }
-    // Foreground: a few bright anchor stars, barely twinkle
-    for (let i = 0; i < 12; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: 1.0 + Math.random() * 0.8,
-        a: Math.random() * Math.PI * 2,
-        speed: 0.001 + Math.random() * 0.0015,
-        rgb: '240,235,228'
-      });
-    }
-  }
-
-  function spawnShooter() {
-    const angle = (Math.PI / 8) + Math.random() * (Math.PI / 6);
-    const speed = 9 + Math.random() * 7;
-    shooters.push({
-      x: Math.random() * canvas.width * 0.75,
-      y: Math.random() * canvas.height * 0.45,
-      vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed,
-      trail: 70 + Math.random() * 60,
-      life: 0,
-      maxLife: 55 + Math.random() * 35
-    });
-  }
-
-  function draw(ts) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    stars.forEach(s => {
-      s.a += s.speed;
-      const alpha = (Math.sin(s.a) + 1) / 2 * 0.75 + 0.1;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${s.rgb}, ${alpha})`;
-      ctx.fill();
-    });
-
-    if (ts > nextShoot) {
-      spawnShooter();
-      nextShoot = ts + 4000 + Math.random() * 6000;
-    }
-
-    shooters = shooters.filter(s => s.life < s.maxLife);
-    shooters.forEach(s => {
-      s.life++;
-      s.x += s.vx;
-      s.y += s.vy;
-
-      const t = s.life / s.maxLife;
-      const alpha = t < 0.15 ? t / 0.15 : t > 0.7 ? 1 - (t - 0.7) / 0.3 : 1;
-
-      const mag = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
-      const tailX = s.x - (s.vx / mag) * s.trail;
-      const tailY = s.y - (s.vy / mag) * s.trail;
-
-      const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
-      grad.addColorStop(0, `rgba(232,228,220,0)`);
-      grad.addColorStop(0.5, `rgba(204,80,80,${alpha * 0.25})`);
-      grad.addColorStop(1, `rgba(255,255,255,${alpha * 0.9})`);
-
-      ctx.beginPath();
-      ctx.moveTo(tailX, tailY);
-      ctx.lineTo(s.x, s.y);
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, 1.8, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${alpha * 0.95})`;
-      ctx.fill();
-    });
-
-    requestAnimationFrame(draw);
-  }
-
-  resize();
-  initStars();
-  requestAnimationFrame(draw);
-  window.addEventListener('resize', () => { resize(); initStars(); });
-})();
+const params = new URLSearchParams(window.location.search);
+const source = params.get('utm_source') || 'direct';
+document.getElementById('utm-source').value = source;
 </script>
 </body>
 </html>
