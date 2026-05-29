@@ -6,7 +6,7 @@
 <title>Airlock: The focus app built for creators.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -24,35 +24,30 @@
     align-items: center;
     max-width: 1100px;
     margin: 0 auto;
+    gap: 40px;
   }
 
   /* ── Left column ── */
   .col-left {
-    width: 50%;
+    flex: 1;
     padding: 72px 20px 72px clamp(32px, 6vw, 80px);
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
-  /* App name */
   .app-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: #1A1A1A;
-    margin-bottom: 36px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #A8243C;
+    margin-bottom: 32px;
     display: block;
   }
 
-  /* Mockup drop-shadow wrapper */
-  .mockup-wrapper {
-    filter: drop-shadow(0 24px 48px rgba(0,0,0,0.12));
-    flex-shrink: 0;
-  }
-
-  /* Headline */
   .headline {
-    font-size: 48px;
+    font-size: clamp(38px, 5vw, 54px);
     font-weight: 800;
     color: #1A1A1A;
     letter-spacing: -2px;
@@ -60,13 +55,12 @@
     margin-bottom: 20px;
   }
 
-  /* Subheadline */
   .subheadline {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 400;
     color: #4A4A4A;
-    max-width: 420px;
-    line-height: 1.55;
+    max-width: 380px;
+    line-height: 1.6;
     margin-bottom: 36px;
   }
 
@@ -74,7 +68,7 @@
   .form-row {
     display: flex;
     gap: 8px;
-    max-width: 480px;
+    max-width: 460px;
   }
 
   .email-input {
@@ -82,22 +76,21 @@
     height: 52px;
     background: #fff;
     border: 1.5px solid #E0E0E0;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 0 18px;
     font-size: 15px;
     font-family: inherit;
     color: #1A1A1A;
     outline: none;
-    transition: border-color 0.15s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   }
 
-  .email-input::placeholder {
-    color: #B0B0B8;
-  }
+  .email-input::placeholder { color: #B0B0B8; }
 
   .email-input:focus {
     border-color: #A8243C;
+    box-shadow: 0 0 0 3px rgba(168,36,60,0.08);
   }
 
   .submit-btn {
@@ -105,76 +98,109 @@
     background: #A8243C;
     color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 0 26px;
     font-size: 15px;
     font-weight: 600;
     font-family: inherit;
     cursor: pointer;
     white-space: nowrap;
-    transition: background 0.15s;
-    box-shadow: 0 1px 3px rgba(168,36,60,0.25);
+    transition: background 0.15s, transform 0.1s;
+    box-shadow: 0 2px 8px rgba(168,36,60,0.30);
   }
 
-  .submit-btn:hover {
-    background: #8f1e33;
+  .submit-btn:hover { background: #8f1e33; }
+  .submit-btn:active { transform: scale(0.98); }
+
+  /* Feedback */
+  #form-message {
+    margin-top: 12px;
+    font-size: 14px;
+    min-height: 20px;
+    color: #4A4A4A;
   }
 
-  /* Below-form links */
+  #form-message.success { color: #1a7a45; }
+  #form-message.error   { color: #A8243C; }
+
   .follow-link {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    margin-top: 18px;
+    margin-top: 20px;
     font-size: 14px;
     color: #888888;
     text-decoration: none;
     transition: color 0.15s;
   }
 
-  .follow-link:hover {
-    color: #1A1A1A;
-  }
+  .follow-link:hover { color: #1A1A1A; }
 
   .coming-soon {
     display: block;
     margin-top: 8px;
     font-size: 13px;
-    color: #888888;
+    color: #AEAEB8;
   }
 
   /* ── Right column ── */
   .col-right {
-    width: 50%;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 48px 24px 48px 20px;
+    padding: 48px 24px 48px 0;
   }
 
-  .mockup-frame {
-    border: none;
-    background: transparent;
-    width: 320px;
-    height: 658px;
-    flex-shrink: 0;
+  /* Phone shell */
+  .phone-shell {
+    position: relative;
+    width: 280px;
+    background: #111;
+    border-radius: 44px;
+    padding: 14px;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.08) inset,
+      0 30px 80px rgba(0,0,0,0.22),
+      0 4px 16px rgba(0,0,0,0.14);
+  }
+
+  /* Dynamic island */
+  .dynamic-island {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 28px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 10;
+  }
+
+  .phone-screen {
+    width: 100%;
+    border-radius: 32px;
+    overflow: hidden;
+    background: #000;
+    aspect-ratio: 390 / 844;
     display: block;
   }
 
-  .artist-credit {
-    font-size: 11px;
-    color: #B0B0B8;
-    text-align: center;
+  .phone-screen video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
-  .artist-credit a {
-    color: #B0B0B8;
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-
-  .artist-credit a:hover {
-    color: #4A4A4A;
+  /* Home indicator */
+  .home-indicator {
+    width: 100px;
+    height: 4px;
+    background: rgba(255,255,255,0.28);
+    border-radius: 2px;
+    margin: 10px auto 2px;
   }
 
   /* ── Mobile ── */
@@ -182,16 +208,16 @@
     .layout {
       flex-direction: column;
       align-items: stretch;
+      gap: 0;
     }
 
     .col-left {
       width: 100%;
-      padding: 56px 28px 36px;
+      padding: 56px 28px 32px;
       justify-content: flex-start;
     }
 
     .headline {
-      font-size: 36px;
       letter-spacing: -1.5px;
     }
 
@@ -206,13 +232,12 @@
 
     .col-right {
       width: 100%;
-      padding: 0 0 56px;
+      padding: 8px 0 56px;
       justify-content: center;
     }
 
-    .mockup-frame {
-      width: 308px;
-      height: 650px;
+    .phone-shell {
+      width: 240px;
     }
   }
 </style>
@@ -229,13 +254,14 @@
 
     <p class="subheadline">Open your socials with intention. Stay focused while you create.</p>
 
-    <form method="POST" action="https://formspree.io/f/xeerkroz">
+    <form id="waitlist-form" method="POST" action="https://formspree.io/f/xeerkroz">
       <input type="hidden" name="source" id="utm-source" value="">
       <div class="form-row">
         <input class="email-input" type="email" id="email" name="email" placeholder="Enter your email" required>
         <button type="submit" class="submit-btn">Join waitlist</button>
       </div>
     </form>
+    <p id="form-message"></p>
 
     <a class="follow-link" href="https://www.linkedin.com/in/raj-derangula-0a2b62290/" target="_blank" rel="noopener noreferrer">
       Follow my journey on LinkedIn
@@ -248,20 +274,57 @@
   </div>
 
   <div class="col-right">
-    <div style="display: flex; flex-direction: column; align-items: center;">
-      <p class="artist-credit" style="margin-bottom: 8px; margin-top: 0;">Captain art by <a href="https://www.instagram.com/white.tulip00/" target="_blank" rel="noopener noreferrer">@white.tulip00</a></p>
-      <div class="mockup-wrapper">
-        <iframe class="mockup-frame" src="airlock-mockup.html" title="Airlock app mockup" allowtransparency="true" scrolling="no"></iframe>
+    <div class="phone-shell">
+      <div class="dynamic-island"></div>
+      <div class="phone-screen">
+        <video autoplay loop muted playsinline>
+          <source src="airlock_demo.mp4" type="video/mp4">
+        </video>
       </div>
+      <div class="home-indicator"></div>
     </div>
   </div>
 
 </div>
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const source = params.get('utm_source') || 'direct';
-document.getElementById('utm-source').value = source;
+  // UTM tracking
+  const params = new URLSearchParams(window.location.search);
+  document.getElementById('utm-source').value = params.get('utm_source') || 'direct';
+
+  // Async form submission
+  const form = document.getElementById('waitlist-form');
+  const msg  = document.getElementById('form-message');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.textContent = '';
+    msg.className = '';
+    const btn = form.querySelector('button');
+    btn.disabled = true;
+    btn.textContent = 'Joining…';
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: document.getElementById('email').value, source: document.getElementById('utm-source').value }),
+      });
+      if (res.ok) {
+        msg.textContent = "You're on the list! We'll be in touch.";
+        msg.className = 'success';
+        form.reset();
+      } else {
+        throw new Error();
+      }
+    } catch {
+      msg.textContent = 'Something went wrong. Please try again.';
+      msg.className = 'error';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Join waitlist';
+    }
+  });
 </script>
 </body>
 </html>
