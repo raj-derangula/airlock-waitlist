@@ -43,7 +43,18 @@
     text-transform: uppercase;
     color: #A8243C;
     margin-bottom: 32px;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .app-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.08);
+    flex-shrink: 0;
   }
 
   .headline {
@@ -231,7 +242,10 @@
 
   <div class="col-left">
 
-    <span class="app-name">Airlock</span>
+    <span class="app-name">
+      <img class="app-icon" src="AirlockAppIcon.jpg" alt="Airlock icon">
+      Airlock
+    </span>
 
     <h1 class="headline">The focus app<br>built for creators.</h1>
 
