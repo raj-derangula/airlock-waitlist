@@ -15,197 +15,264 @@
     background: #FDFDFD;
     font-family: 'Inter', sans-serif;
     color: #1A1A1A;
-    overflow-x: hidden;
   }
 
-  .container {
+  /* ── Nav ── */
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(253,253,253,0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #EFEFEF;
+    z-index: 10;
+  }
+
+  nav .nav-inner {
     max-width: 720px;
     margin: 0 auto;
-    padding: 72px 24px 96px;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
-  header {
-    margin-bottom: 48px;
-  }
-
-  .app-name {
+  .nav-brand {
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #A8243C;
     text-decoration: none;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 40px;
   }
 
-  .app-name:hover { opacity: 0.8; }
+  .nav-brand:hover { opacity: 0.75; }
 
-  h1 {
-    font-size: clamp(28px, 5vw, 40px);
+  .nav-back {
+    font-size: 13px;
+    color: #888;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.15s;
+  }
+
+  .nav-back:hover { color: #1A1A1A; }
+
+  /* ── Hero ── */
+  .hero {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 24px 40px;
+    border-bottom: 1px solid #EFEFEF;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #A8243C;
+    margin-bottom: 14px;
+  }
+
+  .hero h1 {
+    font-size: clamp(30px, 5vw, 44px);
     font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
     color: #1A1A1A;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
 
-  .effective-date {
+  .hero-meta {
     font-size: 14px;
-    color: #4A4A4A;
+    color: #888;
   }
 
-  hr {
-    border: none;
-    border-top: 1px solid #E0E0E0;
-    margin: 40px 0;
+  /* ── Content ── */
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
   }
 
-  .policy-body h2 {
-    font-size: 18px;
+  .content h2 {
+    font-size: 17px;
     font-weight: 700;
     color: #1A1A1A;
-    margin-top: 36px;
-    margin-bottom: 12px;
+    margin-top: 44px;
+    margin-bottom: 10px;
+    padding-top: 44px;
+    border-top: 1px solid #EFEFEF;
   }
 
-  .policy-body p {
+  .content h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .content p {
     font-size: 15px;
-    line-height: 1.75;
+    line-height: 1.8;
     color: #2A2A2A;
     margin-bottom: 14px;
   }
 
-  .policy-body ul {
-    margin: 12px 0 14px 24px;
+  .content ul {
+    margin: 8px 0 14px 20px;
   }
 
-  .policy-body ul li {
+  .content ul li {
     font-size: 15px;
-    line-height: 1.75;
+    line-height: 1.8;
     color: #2A2A2A;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
 
-  .policy-body a {
+  .content a {
     color: #A8243C;
     text-decoration: underline;
+    text-decoration-color: rgba(168,36,60,0.35);
     text-underline-offset: 2px;
+    transition: text-decoration-color 0.15s;
   }
 
-  .policy-body a:hover { opacity: 0.75; }
+  .content a:hover {
+    text-decoration-color: #A8243C;
+  }
 
-  footer {
-    margin-top: 64px;
+  /* ── Footer note ── */
+  .footnote {
+    margin-top: 56px;
     padding-top: 24px;
-    border-top: 1px solid #E0E0E0;
+    border-top: 1px solid #EFEFEF;
     font-size: 13px;
-    color: #4A4A4A;
+    color: #AEAEB8;
   }
 
-  footer a {
-    color: #A8243C;
-    text-decoration: none;
+  .footnote a {
+    color: #AEAEB8;
+    text-decoration: underline;
+    text-decoration-color: rgba(174,174,184,0.4);
+    text-underline-offset: 2px;
+    transition: color 0.15s;
   }
 
-  footer a:hover { text-decoration: underline; }
+  .footnote a:hover { color: #4A4A4A; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 40px 20px 32px; }
+    .content { padding: 36px 20px 72px; }
+  }
 </style>
 </head>
 <body>
-<div class="container">
-  <header>
-    <a class="app-name" href="/">&#8592; Airlock</a>
-    <h1>Privacy Policy</h1>
-    <p class="effective-date">Effective date: June 17, 2026</p>
-  </header>
 
-  <div class="policy-body">
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="/">Airlock</a>
+    <a class="nav-back" href="/">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.5 7H2.5M2.5 7L6 3.5M2.5 7L6 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </a>
+  </div>
+</nav>
 
-    <p>This privacy policy applies to the Airlock app for mobile devices, together with any related services operated by Raj Derangula (collectively, the "Application"). Raj Derangula is hereby referred to as the "Service Provider".</p>
+<div class="hero">
+  <p class="hero-eyebrow">Legal</p>
+  <h1>Privacy Policy</h1>
+  <p class="hero-meta">Effective June 17, 2026 &nbsp;·&nbsp; Raj Derangula</p>
+</div>
 
-    <h2>Information Collection and Use</h2>
-    <p>The Application collects information when you download and use it. This information may include information such as</p>
-    <ul>
-      <li>Your device's Internet Protocol address</li>
-      <li>The pages of the Application that you visit, the time and date of your visit, the time spent on those pages</li>
-      <li>The time spent on the Application</li>
-      <li>Your mobile operating system you use</li>
-    </ul>
+<div class="content">
 
-    <h2>Cookies and Tracking Technologies</h2>
-    <p>The Application or its third-party SDKs may use cookies, SDKs, pixels, and similar technologies to support functionality, analytics, or service delivery. Where required by applicable law, the Service Provider will obtain consent before using non-essential tracking technologies.</p>
+  <p>This privacy policy applies to the Airlock app for mobile devices, together with any related services operated by Raj Derangula (collectively, the "Application"). Raj Derangula is hereby referred to as the "Service Provider".</p>
 
-    <h2>Your Rights</h2>
-    <p>You may request access to, correction of, or deletion of your personal data held by the Service Provider. To exercise these rights, or to withdraw consent where processing is based on consent, contact the Service Provider at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>.</p>
+  <h2>Information Collection and Use</h2>
+  <p>The Application collects information when you download and use it. This information may include:</p>
+  <ul>
+    <li>Your device's Internet Protocol address</li>
+    <li>The pages of the Application that you visit, the time and date of your visit, the time spent on those pages</li>
+    <li>The time spent on the Application</li>
+    <li>Your mobile operating system</li>
+  </ul>
 
-    <h2>Your California Privacy Rights (CCPA/CPRA)</h2>
-    <p>If you are a California resident, you have the right to know what personal information is collected, the right to delete personal information, the right to opt out of the sale or sharing of personal information, and the right to non-discrimination for exercising these rights. To exercise your CCPA/CPRA rights, contact the Service Provider at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>.</p>
-    <p>The Service Provider may use the information you provide to send important information, required notices, and, where permitted by law, marketing communications.</p>
-    <p>For a better experience while using the Application, the Service Provider may require you to provide certain personally identifiable information, including but not limited to Email. The information the Service Provider requests will be retained and used as described in this privacy policy.</p>
+  <h2>Cookies and Tracking Technologies</h2>
+  <p>The Application or its third-party SDKs may use cookies, SDKs, pixels, and similar technologies to support functionality, analytics, or service delivery. Where required by applicable law, the Service Provider will obtain consent before using non-essential tracking technologies.</p>
 
-    <h2>Third Party Access</h2>
-    <p>Only aggregated, anonymized data is periodically transmitted to external services to aid the Service Provider in improving the Application and their service. The Service Provider may share your information with third parties in the ways that are described in this privacy statement.</p>
+  <h2>Your Rights</h2>
+  <p>You may request access to, correction of, or deletion of your personal data held by the Service Provider. To exercise these rights, or to withdraw consent where processing is based on consent, contact the Service Provider at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>.</p>
 
-    <h2>International Data Transfers</h2>
-    <p>The Service Provider or its third-party service providers may transfer personal data to countries outside your country of residence, including outside the European Economic Area (EEA). Where applicable law requires safeguards for international transfers, the Service Provider will use appropriate mechanisms.</p>
-    <ul>
-      <li>Standard Contractual Clauses (SCCs) approved by the European Commission</li>
-      <li>Adequacy decisions or other legally recognized transfer mechanisms</li>
-      <li>Your consent, where required and legally permitted</li>
-    </ul>
-    <p>Data protection laws in other countries may differ from those in your jurisdiction. Where required by law, the Service Provider will apply appropriate safeguards and obtain any consent required for the transfer.</p>
-    <p>The Service Provider may disclose User Provided and Automatically Collected Information:</p>
-    <ul>
-      <li>as required by law, such as to comply with a subpoena, or similar legal process;</li>
-      <li>when they believe in good faith that disclosure is necessary to protect their rights, protect your safety or the safety of others, investigate fraud, or respond to a government request;</li>
-      <li>with their trusted services providers who work on their behalf, do not have an independent use of the information the Service Provider discloses to them, and have agreed to adhere to the rules set forth in this privacy statement.</li>
-    </ul>
+  <h2>Your California Privacy Rights (CCPA/CPRA)</h2>
+  <p>If you are a California resident, you have the right to know what personal information is collected, the right to delete personal information, the right to opt out of the sale or sharing of personal information, and the right to non-discrimination for exercising these rights. To exercise your CCPA/CPRA rights, contact the Service Provider at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>.</p>
+  <p>The Service Provider may use the information you provide to send important information, required notices, and, where permitted by law, marketing communications.</p>
+  <p>For a better experience while using the Application, the Service Provider may require you to provide certain personally identifiable information, including but not limited to Email. The information the Service Provider requests will be retained and used as described in this privacy policy.</p>
 
-    <h2>Opt-Out Rights</h2>
-    <p>You can stop further collection of information from your mobile device by uninstalling the Application. Uninstalling will stop the Application from collecting data from your device, but it does not automatically delete information that has already been transmitted to the Service Provider or to third parties.</p>
-    <p>To request deletion of your personal data, to withdraw consent, or to exercise any of your rights, contact the Service Provider at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>.</p>
+  <h2>Third Party Access</h2>
+  <p>Only aggregated, anonymized data is periodically transmitted to external services to aid the Service Provider in improving the Application and their service. The Service Provider may share your information with third parties in the ways that are described in this privacy statement.</p>
 
-    <h2>Data Retention Policy</h2>
-    <p>The Service Provider retains personal data based on its necessity for the stated purposes:</p>
-    <ul>
-      <li>User Provided Data: Retained for the duration of your use of the Application plus 12 months thereafter, unless longer retention is required by law</li>
-      <li>Automatically Collected Data: Retained for up to 24 months from collection, unless longer retention is required for legal compliance</li>
-      <li>Aggregated and Anonymized Data: Retained indefinitely as it no longer identifies you</li>
-      <li>Data required for legal compliance: Retained as long as required by applicable law</li>
-    </ul>
-    <p>You may request deletion of your personal data, subject to any legal obligation to retain it. If you want the Service Provider to delete User Provided Data submitted through the Application, please contact them at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>. Please note that some User Provided Data may be required for the Application to function properly.</p>
+  <h2>International Data Transfers</h2>
+  <p>The Service Provider or its third-party service providers may transfer personal data to countries outside your country of residence, including outside the European Economic Area (EEA). Where applicable law requires safeguards for international transfers, the Service Provider will use appropriate mechanisms.</p>
+  <ul>
+    <li>Standard Contractual Clauses (SCCs) approved by the European Commission</li>
+    <li>Adequacy decisions or other legally recognized transfer mechanisms</li>
+    <li>Your consent, where required and legally permitted</li>
+  </ul>
+  <p>Data protection laws in other countries may differ from those in your jurisdiction. Where required by law, the Service Provider will apply appropriate safeguards and obtain any consent required for the transfer.</p>
+  <p>The Service Provider may disclose User Provided and Automatically Collected Information:</p>
+  <ul>
+    <li>as required by law, such as to comply with a subpoena, or similar legal process;</li>
+    <li>when they believe in good faith that disclosure is necessary to protect their rights, protect your safety or the safety of others, investigate fraud, or respond to a government request;</li>
+    <li>with their trusted service providers who work on their behalf, do not have an independent use of the information the Service Provider discloses to them, and have agreed to adhere to the rules set forth in this privacy statement.</li>
+  </ul>
 
-    <h2>Children</h2>
-    <p>The Application is not intended for children under 17 years of age, or such higher age as required by applicable law. The Service Provider does not knowingly solicit data from children or market the Application to them.</p>
-    <p>The Service Provider does not knowingly collect personally identifiable information from children. The Service Provider encourages all children to never submit any personally identifiable information through the Application and/or Services. The Service Provider encourages parents and legal guardians to monitor their children's Internet usage and to help enforce this Policy by instructing their children never to provide personally identifiable information through the Application and/or Services without their permission. If you have reason to believe that a child has provided personally identifiable information to the Service Provider through the Application and/or Services, please contact the Service Provider (<a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>) so that they will be able to take the necessary actions. If you are under 17 years of age, your parent or guardian must provide consent on your behalf where permitted by law.</p>
+  <h2>Opt-Out Rights</h2>
+  <p>You can stop further collection of information from your mobile device by uninstalling the Application. Uninstalling will stop the Application from collecting data from your device, but it does not automatically delete information that has already been transmitted to the Service Provider or to third parties.</p>
+  <p>To request deletion of your personal data, to withdraw consent, or to exercise any of your rights, contact the Service Provider at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>.</p>
 
-    <h2>Security</h2>
-    <p>The Service Provider is concerned about safeguarding the confidentiality of your information. The Service Provider provides physical, electronic, and procedural safeguards to protect information the Service Provider processes and maintains.</p>
+  <h2>Data Retention Policy</h2>
+  <p>The Service Provider retains personal data based on its necessity for the stated purposes:</p>
+  <ul>
+    <li><strong>User Provided Data:</strong> Retained for the duration of your use of the Application plus 12 months thereafter, unless longer retention is required by law</li>
+    <li><strong>Automatically Collected Data:</strong> Retained for up to 24 months from collection, unless longer retention is required for legal compliance</li>
+    <li><strong>Aggregated and Anonymized Data:</strong> Retained indefinitely as it no longer identifies you</li>
+    <li><strong>Data required for legal compliance:</strong> Retained as long as required by applicable law</li>
+  </ul>
+  <p>You may request deletion of your personal data, subject to any legal obligation to retain it. If you want the Service Provider to delete User Provided Data submitted through the Application, please contact them at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>. Please note that some User Provided Data may be required for the Application to function properly.</p>
 
-    <h2>Data Breach Notification</h2>
-    <p>If a data breach occurs that affects your personal data, the Service Provider will notify you in accordance with applicable legal requirements, including, where required, providing information about the nature of the breach and the steps being taken to address it.</p>
+  <h2>Children</h2>
+  <p>The Application is not intended for children under 17 years of age, or such higher age as required by applicable law. The Service Provider does not knowingly solicit data from children or market the Application to them.</p>
+  <p>The Service Provider does not knowingly collect personally identifiable information from children. The Service Provider encourages all children to never submit any personally identifiable information through the Application and/or Services. The Service Provider encourages parents and legal guardians to monitor their children's Internet usage and to help enforce this Policy by instructing their children never to provide personally identifiable information through the Application and/or Services without their permission. If you have reason to believe that a child has provided personally identifiable information to the Service Provider through the Application and/or Services, please contact the Service Provider (<a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>) so that they will be able to take the necessary actions. If you are under 17 years of age, your parent or guardian must provide consent on your behalf where permitted by law.</p>
 
-    <h2>Changes</h2>
-    <p>The Service Provider may update this Privacy Policy from time to time. The Service Provider will notify you of material changes by posting the updated Privacy Policy with an effective date. Where required by law, the Service Provider will seek your consent to material changes before they take effect.</p>
-    <p>Previous versions of this Privacy Policy will be maintained and made available upon request by contacting the Service Provider at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>.</p>
+  <h2>Security</h2>
+  <p>The Service Provider is concerned about safeguarding the confidentiality of your information. The Service Provider provides physical, electronic, and procedural safeguards to protect information the Service Provider processes and maintains.</p>
 
-    <h2>Your Consent</h2>
-    <p>Where processing is based on consent, you provide that consent by affirmatively opting in to the relevant feature or action. You may withdraw consent at any time without affecting processing carried out before withdrawal. Processing based on other lawful bases is carried out as described above.</p>
+  <h2>Data Breach Notification</h2>
+  <p>If a data breach occurs that affects your personal data, the Service Provider will notify you in accordance with applicable legal requirements, including, where required, providing information about the nature of the breach and the steps being taken to address it.</p>
 
-    <h2>Contact Us</h2>
-    <p>If you have any questions regarding privacy while using the Application, or have questions about the practices, please contact the Service Provider via email at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>.</p>
+  <h2>Changes</h2>
+  <p>The Service Provider may update this Privacy Policy from time to time. The Service Provider will notify you of material changes by posting the updated Privacy Policy with an effective date. Where required by law, the Service Provider will seek your consent to material changes before they take effect.</p>
+  <p>Previous versions of this Privacy Policy will be maintained and made available upon request by contacting the Service Provider at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>.</p>
 
-    <hr>
+  <h2>Your Consent</h2>
+  <p>Where processing is based on consent, you provide that consent by affirmatively opting in to the relevant feature or action. You may withdraw consent at any time without affecting processing carried out before withdrawal. Processing based on other lawful bases is carried out as described above.</p>
 
-    <p style="font-size:13px; color:#4A4A4A;">This privacy policy page was generated by <a href="https://app-privacy-policy-generator.nisrulz.com/" target="_blank" rel="noopener noreferrer">App Privacy Policy Generator</a>.</p>
+  <h2>Contact Us</h2>
+  <p>If you have any questions regarding privacy while using the Application, or have questions about the practices, please contact the Service Provider via email at <a href="mailto:vigneshrajderangula@gmail.com">vigneshrajderangula@gmail.com</a>.</p>
 
+  <div class="footnote">
+    This privacy policy page was generated by <a href="https://app-privacy-policy-generator.nisrulz.com/" target="_blank" rel="noopener noreferrer">App Privacy Policy Generator</a>.
   </div>
 
-  <footer>
-    <a href="/">&larr; Back to Airlock</a>
-  </footer>
 </div>
 </body>
 </html>
