@@ -6,7 +6,7 @@
 <title>Airlock: The focus app built for creators.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,87 +18,248 @@
     overflow-x: hidden;
   }
 
+  body {
+    background-image:
+      radial-gradient(ellipse 70% 50% at 110% 10%, rgba(168,36,60,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at -10% 80%, rgba(168,36,60,0.04) 0%, transparent 60%);
+  }
+
+  /* ── Layout ── */
   .layout {
     display: flex;
     min-height: 100vh;
     align-items: center;
-    max-width: 1100px;
+    max-width: 1120px;
     margin: 0 auto;
-    gap: 40px;
+    gap: 48px;
+    padding: 0 24px;
   }
 
   /* ── Left column ── */
   .col-left {
     flex: 1;
-    padding: 72px 20px 72px clamp(24px, 4vw, 56px);
+    padding: 80px 0 80px clamp(0px, 2vw, 32px);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 0;
   }
 
+  /* App name row */
   .app-name {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #A8243C;
-    margin-bottom: 32px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 10px;
+    margin-bottom: 28px;
   }
 
   .app-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
     object-fit: cover;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.14), 0 0 0 0.5px rgba(0,0,0,0.07);
     flex-shrink: 0;
   }
 
-  .headline {
-    font-size: clamp(34px, 3.4vw, 46px);
-    font-weight: 800;
-    color: #1A1A1A;
-    letter-spacing: -2px;
-    line-height: 1.05;
+  .app-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #A8243C;
+  }
+
+  /* Live badge */
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(168,36,60,0.08);
+    border: 1px solid rgba(168,36,60,0.18);
+    color: #A8243C;
+    border-radius: 100px;
+    padding: 5px 12px 5px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     margin-bottom: 20px;
-    white-space: nowrap;
+    width: fit-content;
+  }
+
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #A8243C;
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.75); }
+  }
+
+  /* Headline */
+  .headline {
+    font-size: clamp(36px, 3.6vw, 50px);
+    font-weight: 900;
+    color: #1A1A1A;
+    letter-spacing: -2.5px;
+    line-height: 1.03;
+    margin-bottom: 16px;
   }
 
   .subheadline {
     font-size: 17px;
     font-weight: 400;
-    color: #4A4A4A;
+    color: #5A5A62;
     max-width: 380px;
-    line-height: 1.6;
+    line-height: 1.65;
     margin-bottom: 36px;
   }
 
-  /* Form */
+  /* ── Beta CTA ── */
+  .beta-cta-wrap {
+    margin-bottom: 8px;
+  }
+
+  .beta-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #B8293F 0%, #8C1A2E 100%);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 16px;
+    padding: 18px 22px;
+    font-size: 16px;
+    font-weight: 700;
+    max-width: 400px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.12) inset,
+      0 4px 12px rgba(168,36,60,0.28),
+      0 12px 32px rgba(168,36,60,0.18);
+    letter-spacing: -0.2px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .beta-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 50%);
+    border-radius: inherit;
+  }
+
+  .beta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.12) inset,
+      0 8px 20px rgba(168,36,60,0.35),
+      0 20px 48px rgba(168,36,60,0.22);
+  }
+
+  .beta-btn:active { transform: translateY(0) scale(0.985); }
+
+  .beta-btn-icon {
+    width: 38px;
+    height: 38px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .beta-btn-text {
+    flex: 1;
+  }
+
+  .beta-btn-title {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .beta-btn-sub {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.72;
+    margin-top: 2px;
+    letter-spacing: 0;
+  }
+
+  .beta-btn-arrow {
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 36px 0 20px;
+    max-width: 400px;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #E8E8EC;
+  }
+
+  .divider span {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #C0C0C8;
+    white-space: nowrap;
+  }
+
+  /* ── Notify section ── */
+  .notify-label {
+    font-size: 14px;
+    color: #7A7A82;
+    margin-bottom: 14px;
+    max-width: 380px;
+    line-height: 1.55;
+  }
+
   .form-row {
     display: flex;
     gap: 8px;
-    max-width: 460px;
+    max-width: 400px;
   }
 
   .email-input {
     flex: 1;
-    height: 52px;
+    height: 48px;
     background: #fff;
-    border: 1.5px solid #d4dadc;
+    border: 1.5px solid #E0E0E6;
     border-radius: 12px;
-    padding: 0 18px;
-    font-size: 15px;
+    padding: 0 16px;
+    font-size: 14px;
     font-family: inherit;
     color: #1A1A1A;
     outline: none;
     transition: border-color 0.15s, box-shadow 0.15s;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    min-width: 0;
   }
 
-  .email-input::placeholder { color: #B0B0B8; }
+  .email-input::placeholder { color: #B8B8C2; }
 
   .email-input:focus {
     border-color: #A8243C;
@@ -106,68 +267,61 @@
   }
 
   .submit-btn {
-    height: 52px;
-    background: #A8243C;
+    height: 48px;
+    background: #1A1A1A;
     color: #fff;
     border: none;
     border-radius: 12px;
-    padding: 0 26px;
-    font-size: 15px;
+    padding: 0 22px;
+    font-size: 14px;
     font-weight: 600;
     font-family: inherit;
     cursor: pointer;
     white-space: nowrap;
     transition: background 0.15s, transform 0.1s;
-    box-shadow: 0 2px 8px rgba(168,36,60,0.30);
+    flex-shrink: 0;
   }
 
-  .submit-btn:hover { background: #8f1e33; }
-  .submit-btn:active { transform: scale(0.98); }
+  .submit-btn:hover { background: #333; }
+  .submit-btn:active { transform: scale(0.97); }
 
-  /* Feedback */
   #form-message {
-    margin-top: 12px;
-    font-size: 14px;
-    min-height: 20px;
-    color: #4A4A4A;
+    margin-top: 10px;
+    font-size: 13px;
+    min-height: 18px;
+    color: #7A7A82;
   }
 
   #form-message.success { color: #1a7a45; }
   #form-message.error   { color: #A8243C; }
 
-  .follow-link {
+  /* ── Footer links ── */
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .follow-link, .privacy-link {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    margin-top: 20px;
-    font-size: 14px;
-    color: #888888;
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-
-  .follow-link:hover { color: #1A1A1A; }
-
-  .artist-credit {
-    margin-top: 12px;
-    font-size: 12px;
-    color: #B0B0B8;
-    text-align: center;
-  }
-
-  .artist-credit a {
-    color: #B0B0B8;
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-
-  .artist-credit a:hover { color: #4A4A4A; }
-
-  .coming-soon {
-    display: block;
-    margin-top: 8px;
+    gap: 4px;
     font-size: 13px;
-    color: #AEAEB8;
+    color: #A0A0A8;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .follow-link:hover, .privacy-link:hover { color: #1A1A1A; }
+
+  .footer-sep {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #D0D0D8;
+    flex-shrink: 0;
   }
 
   /* ── Right column ── */
@@ -176,20 +330,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 48px 24px 48px 72px;
+    padding: 48px 0 48px 24px;
+  }
+
+  .video-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
   }
 
   .demo-video-wrap {
-    width: 480px;
+    width: 340px;
     max-width: 100%;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 9 / 19;
     overflow: hidden;
-    flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 36px;
     box-shadow:
-      0 2px 4px rgba(0,0,0,0.06),
-      0 8px 24px rgba(0,0,0,0.12),
-      0 32px 72px rgba(0,0,0,0.20);
+      0 0 0 1px rgba(0,0,0,0.06),
+      0 4px 8px rgba(0,0,0,0.06),
+      0 12px 32px rgba(0,0,0,0.10),
+      0 40px 80px rgba(0,0,0,0.16);
   }
 
   .demo-video-wrap video {
@@ -200,43 +361,81 @@
     display: block;
   }
 
+  .artist-credit {
+    font-size: 11px;
+    color: #C0C0C8;
+    text-align: center;
+  }
+
+  .artist-credit a {
+    color: #C0C0C8;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .artist-credit a:hover { color: #4A4A4A; }
+
   /* ── Mobile ── */
-  @media (max-width: 768px) {
+  @media (max-width: 780px) {
     .layout {
       flex-direction: column;
       align-items: stretch;
       gap: 0;
+      padding: 0;
+      min-height: auto;
     }
 
     .col-left {
+      order: 1;
       width: 100%;
-      padding: 56px 28px 32px;
-      justify-content: flex-start;
+      padding: 52px 24px 32px;
+    }
+
+    .col-right {
+      order: 2;
+      width: 100%;
+      padding: 8px 24px 56px;
+      justify-content: center;
     }
 
     .headline {
-      letter-spacing: -1.5px;
-      font-size: clamp(24px, 7.5vw, 34px);
+      font-size: clamp(32px, 8vw, 42px);
+      letter-spacing: -2px;
+      white-space: normal;
+    }
+
+    .subheadline {
+      font-size: 16px;
+      max-width: 100%;
+    }
+
+    .beta-btn {
+      max-width: 100%;
     }
 
     .form-row {
       max-width: 100%;
-      flex-wrap: wrap;
+      flex-direction: column;
     }
 
     .submit-btn {
       width: 100%;
     }
 
-    .col-right {
-      width: 100%;
-      padding: 32px 48px 56px;
-      justify-content: center;
+    .divider {
+      max-width: 100%;
     }
 
     .demo-video-wrap {
-      width: 320px;
+      width: 260px;
+      border-radius: 28px;
     }
+  }
+
+  @media (max-width: 400px) {
+    .col-left { padding: 40px 20px 28px; }
+    .col-right { padding: 8px 20px 48px; }
+    .demo-video-wrap { width: 220px; }
   }
 </style>
 </head>
@@ -246,36 +445,66 @@
 
   <div class="col-left">
 
-    <span class="app-name">
+    <div class="app-name">
       <img class="app-icon" src="AirlockAppIcon.jpg" alt="Airlock icon">
-      Airlock
-    </span>
+      <span class="app-label">Airlock</span>
+    </div>
+
+    <div class="live-badge">
+      <span class="live-dot"></span>
+      Beta is live
+    </div>
 
     <h1 class="headline">The focus app<br>built for creators.</h1>
-
     <p class="subheadline">Open your socials with intention. Stay focused while you create.</p>
+
+    <div class="beta-cta-wrap">
+      <a class="beta-btn" href="https://testflight.apple.com/join/57kpjCH9" target="_blank" rel="noopener noreferrer">
+        <span class="beta-btn-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.78 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/>
+          </svg>
+        </span>
+        <span class="beta-btn-text">
+          <span class="beta-btn-title">Try Airlock on TestFlight</span>
+          <span class="beta-btn-sub">Free beta · iOS only · No account needed</span>
+        </span>
+        <svg class="beta-btn-arrow" width="16" height="16" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 10.5L10.5 2.5M10.5 2.5H5.5M10.5 2.5V7.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="divider">
+      <span>Stay in the loop</span>
+    </div>
+
+    <p class="notify-label">Get notified when the full app launches or major updates drop.</p>
 
     <form id="waitlist-form" method="POST" action="https://formspree.io/f/xeerkroz">
       <input type="hidden" name="source" id="utm-source" value="">
       <div class="form-row">
-        <input class="email-input" type="email" id="email" name="email" placeholder="Enter your email" required>
-        <button type="submit" class="submit-btn">Join waitlist</button>
+        <input class="email-input" type="email" id="email" name="email" placeholder="your@email.com" required>
+        <button type="submit" class="submit-btn">Notify me</button>
       </div>
     </form>
     <p id="form-message"></p>
 
-    <a class="follow-link" href="https://www.linkedin.com/in/raj-derangula-0a2b62290/" target="_blank" rel="noopener noreferrer">
-      Follow my journey on LinkedIn
-      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2.5 10.5L10.5 2.5M10.5 2.5H5.5M10.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
-    <span class="coming-soon">iOS only · Coming June 2026</span>
+    <div class="footer-links">
+      <a class="follow-link" href="https://www.linkedin.com/in/raj-derangula-0a2b62290/" target="_blank" rel="noopener noreferrer">
+        Follow my journey on LinkedIn
+        <svg width="11" height="11" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2.5 10.5L10.5 2.5M10.5 2.5H5.5M10.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <span class="footer-sep"></span>
+      <a class="privacy-link" href="/privacy.html">Privacy Policy</a>
+    </div>
 
   </div>
 
   <div class="col-right">
-    <div style="display:flex;flex-direction:column;align-items:center;">
+    <div class="video-stack">
       <div class="demo-video-wrap">
         <video autoplay loop muted playsinline>
           <source src="airlock_demo.mp4" type="video/mp4">
@@ -288,11 +517,9 @@
 </div>
 
 <script>
-  // UTM tracking
   const params = new URLSearchParams(window.location.search);
   document.getElementById('utm-source').value = params.get('utm_source') || 'direct';
 
-  // Async form submission
   const form = document.getElementById('waitlist-form');
   const msg  = document.getElementById('form-message');
 
@@ -302,7 +529,7 @@
     msg.className = '';
     const btn = form.querySelector('button');
     btn.disabled = true;
-    btn.textContent = 'Joining…';
+    btn.textContent = 'Sending…';
 
     try {
       const res = await fetch(form.action, {
@@ -322,7 +549,7 @@
       msg.className = 'error';
     } finally {
       btn.disabled = false;
-      btn.textContent = 'Join waitlist';
+      btn.textContent = 'Notify me';
     }
   });
 </script>
