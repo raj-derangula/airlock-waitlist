@@ -76,6 +76,70 @@
     margin-bottom: 36px;
   }
 
+  /* Beta CTA */
+  .beta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #A8243C;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 14px;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 700;
+    max-width: 360px;
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(168,36,60,0.35);
+    letter-spacing: -0.2px;
+  }
+
+  .beta-btn:hover { background: #8f1e33; box-shadow: 0 6px 20px rgba(168,36,60,0.45); }
+  .beta-btn:active { transform: scale(0.98); }
+
+  .beta-btn .arrow-icon { margin-left: auto; opacity: 0.8; }
+
+  .beta-note {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #AEAEB8;
+  }
+
+  /* Divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 16px;
+    max-width: 460px;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #E0E0E0;
+  }
+
+  .divider span {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #AEAEB8;
+    white-space: nowrap;
+  }
+
+  .notify-label {
+    font-size: 14px;
+    color: #6A6A72;
+    margin-bottom: 14px;
+    max-width: 380px;
+    line-height: 1.5;
+  }
+
   /* Form */
   .form-row {
     display: flex;
@@ -162,13 +226,6 @@
   }
 
   .artist-credit a:hover { color: #4A4A4A; }
-
-  .coming-soon {
-    display: block;
-    margin-top: 8px;
-    font-size: 13px;
-    color: #AEAEB8;
-  }
 
   .privacy-link {
     display: inline-block;
@@ -266,11 +323,28 @@
 
     <p class="subheadline">Open your socials with intention. Stay focused while you create.</p>
 
+    <a class="beta-btn" href="https://testflight.apple.com/join/57kpjCH9" target="_blank" rel="noopener noreferrer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.78 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/>
+      </svg>
+      Try Airlock Beta on TestFlight
+      <svg class="arrow-icon" width="14" height="14" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.5 10.5L10.5 2.5M10.5 2.5H5.5M10.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+    <span class="beta-note">Free · iOS only · No account needed</span>
+
+    <div class="divider">
+      <span>Stay in the loop</span>
+    </div>
+
+    <p class="notify-label">Get notified when the full app launches or major updates drop.</p>
+
     <form id="waitlist-form" method="POST" action="https://formspree.io/f/xeerkroz">
       <input type="hidden" name="source" id="utm-source" value="">
       <div class="form-row">
         <input class="email-input" type="email" id="email" name="email" placeholder="Enter your email" required>
-        <button type="submit" class="submit-btn">Join waitlist</button>
+        <button type="submit" class="submit-btn">Notify me</button>
       </div>
     </form>
     <p id="form-message"></p>
@@ -281,7 +355,6 @@
         <path d="M2.5 10.5L10.5 2.5M10.5 2.5H5.5M10.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </a>
-    <span class="coming-soon">iOS only · Coming June 2026</span>
     <a class="privacy-link" href="/privacy.html">Privacy Policy</a>
 
   </div>
