@@ -130,54 +130,33 @@
     display: flex;
     align-items: center;
     gap: 13px;
-    background: linear-gradient(160deg, #C0293F 0%, #861828 100%);
+    background: #A8243C;
     color: #fff;
     text-decoration: none;
-    border-radius: 18px;
-    padding: 14px 18px 14px 14px;
+    border-radius: 14px;
+    padding: 13px 16px 13px 13px;
     max-width: 390px;
-    transition: transform 0.18s cubic-bezier(.22,.68,0,1.2), box-shadow 0.18s;
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.14) inset,
-      0 -1px 0 rgba(0,0,0,0.18) inset,
-      0 2px 6px rgba(168,36,60,0.22),
-      0 8px 24px rgba(168,36,60,0.22),
-      0 24px 48px rgba(168,36,60,0.12);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .beta-btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 45%);
-    border-radius: inherit;
-    pointer-events: none;
+    transition: background 0.15s, box-shadow 0.15s, transform 0.12s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 4px 16px rgba(168,36,60,0.24);
   }
 
   .beta-btn:hover {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow:
-      0 1px 0 rgba(255,255,255,0.14) inset,
-      0 -1px 0 rgba(0,0,0,0.18) inset,
-      0 4px 12px rgba(168,36,60,0.28),
-      0 16px 36px rgba(168,36,60,0.28),
-      0 32px 64px rgba(168,36,60,0.16);
+    background: #951f36;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.10), 0 6px 20px rgba(168,36,60,0.30);
+    transform: translateY(-1px);
   }
 
-  .beta-btn:active { transform: scale(0.98); transition-duration: 0.08s; }
+  .beta-btn:active { transform: scale(0.985); transition-duration: 0.08s; }
 
   .beta-btn-icon {
-    width: 44px;
-    height: 44px;
-    background: rgba(0,0,0,0.18);
-    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 1px 0 rgba(255,255,255,0.1) inset;
   }
 
   .beta-btn-text {
@@ -187,7 +166,7 @@
   .beta-btn-title {
     display: block;
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 650;
     line-height: 1.2;
     letter-spacing: -0.2px;
   }
@@ -195,14 +174,13 @@
   .beta-btn-sub {
     display: block;
     font-size: 11.5px;
-    font-weight: 500;
-    opacity: 0.65;
-    margin-top: 3px;
-    letter-spacing: 0;
+    font-weight: 400;
+    opacity: 0.6;
+    margin-top: 2px;
   }
 
   .beta-btn-arrow {
-    opacity: 0.55;
+    opacity: 0.5;
     flex-shrink: 0;
   }
 
@@ -236,57 +214,61 @@
   .notify-label {
     font-size: 14px;
     color: #7A7A82;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     max-width: 380px;
     line-height: 1.55;
   }
 
   .form-row {
     display: flex;
-    gap: 8px;
+    align-items: center;
     max-width: 400px;
+    background: #fff;
+    border: 1.5px solid #E0E0E6;
+    border-radius: 12px;
+    padding: 5px 5px 5px 16px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  .form-row:focus-within {
+    border-color: #A8243C;
+    box-shadow: 0 0 0 3px rgba(168,36,60,0.08);
   }
 
   .email-input {
     flex: 1;
-    height: 48px;
-    background: #fff;
-    border: 1.5px solid #E0E0E6;
-    border-radius: 12px;
-    padding: 0 16px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    padding: 0;
     font-size: 14px;
     font-family: inherit;
     color: #1A1A1A;
     outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     min-width: 0;
   }
 
   .email-input::placeholder { color: #B8B8C2; }
 
-  .email-input:focus {
-    border-color: #A8243C;
-    box-shadow: 0 0 0 3px rgba(168,36,60,0.08);
-  }
-
   .submit-btn {
-    height: 48px;
-    background: transparent;
-    color: #A8243C;
-    border: 1.5px solid rgba(168,36,60,0.35);
-    border-radius: 12px;
-    padding: 0 22px;
-    font-size: 14px;
+    height: 36px;
+    background: #1A1A1A;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0 18px;
+    font-size: 13px;
     font-weight: 600;
     font-family: inherit;
     cursor: pointer;
     white-space: nowrap;
-    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    transition: background 0.15s, transform 0.1s;
     flex-shrink: 0;
+    letter-spacing: -0.1px;
   }
 
-  .submit-btn:hover { background: rgba(168,36,60,0.06); border-color: rgba(168,36,60,0.6); }
+  .submit-btn:hover { background: #333; }
   .submit-btn:active { transform: scale(0.97); }
 
   #form-message {
@@ -419,11 +401,6 @@
 
     .form-row {
       max-width: 100%;
-      flex-direction: column;
-    }
-
-    .submit-btn {
-      width: 100%;
     }
 
     .divider {
