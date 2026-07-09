@@ -70,36 +70,33 @@
     color: #A8243C;
   }
 
-  /* Live badge */
-  .live-badge {
+  /* Launch countdown badge */
+  .launch-badge {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(168,36,60,0.07);
-    border: 1px solid rgba(168,36,60,0.16);
-    color: #A8243C;
+    gap: 8px;
+    background: linear-gradient(135deg, #A8243C 0%, #7C1A2C 100%);
+    color: #fff;
     border-radius: 100px;
-    padding: 4px 11px 4px 8px;
-    font-size: 11.5px;
+    padding: 7px 16px 7px 11px;
+    font-size: 12.5px;
     font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
+    letter-spacing: 0.01em;
+    margin-bottom: 18px;
     width: fit-content;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 6px 18px rgba(168,36,60,0.30);
   }
 
-  .live-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #A8243C;
-    flex-shrink: 0;
-    animation: pulse 2s ease-in-out infinite;
+  .launch-badge-icon {
+    display: inline-flex;
+    font-size: 13px;
+    line-height: 1;
+    animation: launch-wiggle 2.2s ease-in-out infinite;
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50%       { opacity: 0.5; transform: scale(0.75); }
+  @keyframes launch-wiggle {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%       { transform: translateY(-2px) rotate(6deg); }
   }
 
   /* Headline */
@@ -431,13 +428,13 @@
       <span class="app-label">Airlock</span>
     </div>
 
-    <div class="live-badge">
-      <span class="live-dot"></span>
-      Beta is live
+    <div class="launch-badge">
+      <span class="launch-badge-icon">🚀</span>
+      <span id="launch-badge-text">Launching on the App Store — July 11</span>
     </div>
 
     <h1 class="headline">The focus app<br>built for creators.</h1>
-    <p class="subheadline">Open your socials with intention. Stay focused while you create.</p>
+    <p class="subheadline">Open your socials with intention. Stay focused while you create. Airlock is landing on the App Store July 11, 2026.</p>
 
     <div class="beta-cta-wrap">
       <a class="beta-btn" href="https://testflight.apple.com/join/57kpjCH9" target="_blank" rel="noopener noreferrer">
@@ -448,7 +445,7 @@
         </span>
         <span class="beta-btn-text">
           <span class="beta-btn-title">Try Airlock on TestFlight</span>
-          <span class="beta-btn-sub">Free · iOS · Anonymous · No account needed</span>
+          <span class="beta-btn-sub">Free · iOS · Get in before the App Store launch</span>
         </span>
         <svg class="beta-btn-arrow" width="16" height="16" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M2.5 10.5L10.5 2.5M10.5 2.5H5.5M10.5 2.5V7.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -460,7 +457,7 @@
       <span>Stay in the loop</span>
     </div>
 
-    <p class="notify-label">Get notified when the full app launches or major updates drop.</p>
+    <p class="notify-label">Be first to know the moment Airlock hits the App Store, plus major updates after that.</p>
 
     <form id="waitlist-form" method="POST" action="https://formspree.io/f/xeerkroz">
       <input type="hidden" name="source" id="utm-source" value="">
@@ -498,6 +495,27 @@
 </div>
 
 <script>
+  (function () {
+    const launchDate = new Date('2026-07-11T00:00:00');
+    const badgeText = document.getElementById('launch-badge-text');
+    const msPerDay = 1000 * 60 * 60 * 24;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const diffDays = Math.round((launchDate - today) / msPerDay);
+
+    let text;
+    if (diffDays > 1) {
+      text = `Launching on the App Store in ${diffDays} days — July 11`;
+    } else if (diffDays === 1) {
+      text = 'Launching on the App Store tomorrow — July 11';
+    } else if (diffDays === 0) {
+      text = "We're live on the App Store today!";
+    } else {
+      text = 'Now available on the App Store';
+    }
+    badgeText.textContent = text;
+  })();
+
   const params = new URLSearchParams(window.location.search);
   document.getElementById('utm-source').value = params.get('utm_source') || 'direct';
 
