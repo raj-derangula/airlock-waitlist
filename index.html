@@ -70,34 +70,105 @@
     color: #A8243C;
   }
 
-  /* Launch countdown badge */
-  .launch-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, #A8243C 0%, #7C1A2C 100%);
-    color: #fff;
-    border-radius: 100px;
-    padding: 7px 16px 7px 11px;
-    font-size: 12.5px;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    margin-bottom: 18px;
-    width: fit-content;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 6px 18px rgba(168,36,60,0.30);
+  /* Launch countdown panel (mission-control style) */
+  .launch-panel {
+    background: #1A1A1A;
+    border-radius: 16px;
+    padding: 14px 18px 16px;
+    margin-bottom: 22px;
+    max-width: 390px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 10px 24px rgba(0,0,0,0.18);
   }
 
-  .launch-badge-icon {
+  .launch-panel-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .launch-panel-icon {
     display: inline-flex;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1;
     animation: launch-wiggle 2.2s ease-in-out infinite;
+    flex-shrink: 0;
   }
 
   @keyframes launch-wiggle {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50%       { transform: translateY(-2px) rotate(6deg); }
   }
+
+  .launch-panel-text {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #F2F2F2;
+  }
+
+  .launch-panel-text strong {
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .countdown-clock {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: clamp(4px, 3vw, 28px);
+    max-width: 320px;
+  }
+
+  .countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .countdown-num {
+    font-family: 'SF Mono', 'JetBrains Mono', 'Roboto Mono', ui-monospace, monospace;
+    font-size: clamp(18px, 5vw, 22px);
+    font-weight: 800;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+
+  .countdown-unit-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.42);
+    margin-top: 5px;
+  }
+
+  .countdown-colon {
+    font-family: 'SF Mono', 'JetBrains Mono', 'Roboto Mono', ui-monospace, monospace;
+    font-size: clamp(16px, 4vw, 20px);
+    font-weight: 700;
+    color: #A8243C;
+    line-height: 1;
+    padding-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .launch-panel.is-live .countdown-clock { display: none; }
+
+  .launch-panel-live {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .launch-panel.is-live .launch-panel-live { display: flex; }
 
   /* Headline */
   .headline {
@@ -404,6 +475,10 @@
       max-width: 100%;
     }
 
+    .launch-panel {
+      max-width: 100%;
+    }
+
     .demo-video-wrap {
       width: 280px;
       border-radius: 16px;
@@ -414,6 +489,24 @@
     .col-left { padding: 40px 20px 28px; }
     .col-right { padding: 8px 20px 48px; }
     .demo-video-wrap { width: 240px; }
+
+    .launch-panel {
+      padding: 12px 14px 14px;
+    }
+
+    .countdown-unit-label {
+      font-size: 8px;
+    }
+  }
+
+  @media (max-width: 340px) {
+    .countdown-clock {
+      gap: 0;
+    }
+
+    .countdown-unit-label {
+      display: none;
+    }
   }
 </style>
 </head>
@@ -428,13 +521,37 @@
       <span class="app-label">Airlock</span>
     </div>
 
-    <div class="launch-badge">
-      <span class="launch-badge-icon">🚀</span>
-      <span id="launch-badge-text">Launching on the App Store — July 11</span>
+    <div class="launch-panel" id="launch-panel">
+      <div class="launch-panel-top">
+        <span class="launch-panel-icon">🚀</span>
+        <span class="launch-panel-text">Launching on the App Store <strong>July 11th</strong></span>
+      </div>
+      <div class="countdown-clock" id="countdown-clock" aria-hidden="true">
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-d">00</span>
+          <span class="countdown-unit-label">Days</span>
+        </div>
+        <span class="countdown-colon">:</span>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-h">00</span>
+          <span class="countdown-unit-label">Hrs</span>
+        </div>
+        <span class="countdown-colon">:</span>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-m">00</span>
+          <span class="countdown-unit-label">Min</span>
+        </div>
+        <span class="countdown-colon">:</span>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cd-s">00</span>
+          <span class="countdown-unit-label">Sec</span>
+        </div>
+      </div>
+      <div class="launch-panel-live">🎉 Airlock is live on the App Store</div>
     </div>
 
     <h1 class="headline">The focus app<br>built for creators.</h1>
-    <p class="subheadline">Open your socials with intention. Stay focused while you create. Airlock is landing on the App Store July 11, 2026.</p>
+    <p class="subheadline">Open your socials with intention. Stay focused while you create. Airlock lands on the App Store July 11th, 2026.</p>
 
     <div class="beta-cta-wrap">
       <a class="beta-btn" href="https://testflight.apple.com/join/57kpjCH9" target="_blank" rel="noopener noreferrer">
@@ -497,23 +614,29 @@
 <script>
   (function () {
     const launchDate = new Date('2026-07-11T00:00:00');
-    const badgeText = document.getElementById('launch-badge-text');
-    const msPerDay = 1000 * 60 * 60 * 24;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const diffDays = Math.round((launchDate - today) / msPerDay);
+    const panel = document.getElementById('launch-panel');
+    const elD = document.getElementById('cd-d');
+    const elH = document.getElementById('cd-h');
+    const elM = document.getElementById('cd-m');
+    const elS = document.getElementById('cd-s');
+    const pad = (n) => String(n).padStart(2, '0');
 
-    let text;
-    if (diffDays > 1) {
-      text = `Launching on the App Store in ${diffDays} days — July 11`;
-    } else if (diffDays === 1) {
-      text = 'Launching on the App Store tomorrow — July 11';
-    } else if (diffDays === 0) {
-      text = "We're live on the App Store today!";
-    } else {
-      text = 'Now available on the App Store';
+    function tick() {
+      const diff = launchDate - new Date();
+      if (diff <= 0) {
+        panel.classList.add('is-live');
+        clearInterval(timer);
+        return;
+      }
+      const totalSeconds = Math.floor(diff / 1000);
+      elD.textContent = pad(Math.floor(totalSeconds / 86400));
+      elH.textContent = pad(Math.floor((totalSeconds % 86400) / 3600));
+      elM.textContent = pad(Math.floor((totalSeconds % 3600) / 60));
+      elS.textContent = pad(totalSeconds % 60);
     }
-    badgeText.textContent = text;
+
+    tick();
+    const timer = setInterval(tick, 1000);
   })();
 
   const params = new URLSearchParams(window.location.search);
