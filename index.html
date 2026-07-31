@@ -646,6 +646,8 @@
 
     <form id="waitlist-form" method="POST" action="https://formspree.io/f/xeerkroz">
       <input type="hidden" name="source" id="utm-source" value="">
+      <input type="hidden" name="medium" id="utm-medium" value="">
+      <input type="hidden" name="campaign" id="utm-campaign" value="">
       <div class="form-row">
         <input class="email-input" type="email" id="email" name="email" placeholder="your@email.com" required>
         <button type="submit" class="submit-btn">Notify me</button>
@@ -729,8 +731,25 @@
     const timer = setInterval(tick, 1000);
   })();
 
-  const params = new URLSearchParams(window.location.search);
-  document.getElementById('utm-source').value = params.get('utm_source') || 'direct';
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    let stored = {};
+    try { stored = JSON.parse(localStorage.getItem('airlock_attribution') || '{}'); } catch {}
+
+    const attribution = {
+      source: params.get('utm_source') || stored.source || 'direct',
+      medium: params.get('utm_medium') || stored.medium || 'none',
+      campaign: params.get('utm_campaign') || stored.campaign || 'none',
+    };
+
+    if (params.get('utm_source')) {
+      try { localStorage.setItem('airlock_attribution', JSON.stringify(attribution)); } catch {}
+    }
+
+    document.getElementById('utm-source').value = attribution.source;
+    document.getElementById('utm-medium').value = attribution.medium;
+    document.getElementById('utm-campaign').value = attribution.campaign;
+  })();
 
   const form = document.getElementById('waitlist-form');
   const msg  = document.getElementById('form-message');
@@ -747,7 +766,12 @@
       const res = await fetch(form.action, {
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: document.getElementById('email').value, source: document.getElementById('utm-source').value }),
+        body: JSON.stringify({
+          email: document.getElementById('email').value,
+          source: document.getElementById('utm-source').value,
+          medium: document.getElementById('utm-medium').value,
+          campaign: document.getElementById('utm-campaign').value,
+        }),
       });
       if (res.ok) {
         msg.textContent = "You're on the list! We'll be in touch.";
