@@ -385,6 +385,33 @@
     50%       { transform: translateX(-50%) translateY(6px); }
   }
 
+  /* ── Screenshots strip ── */
+  .screenshots-section {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px 8px;
+  }
+
+  .screenshots-strip {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+
+  .screenshots-strip::-webkit-scrollbar { display: none; }
+
+  .screenshot-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: 220px;
+    border-radius: 20px;
+    display: block;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.10);
+  }
+
   /* ── Social proof / founder section ── */
   .proof-section {
     max-width: 1120px;
@@ -394,6 +421,8 @@
   }
 
   .testimonials {
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -403,29 +432,59 @@
     background: linear-gradient(135deg, #EFEFF2 0%, #E6E6EA 100%);
   }
 
+  .testimonials::before,
+  .testimonials::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    filter: blur(50px);
+    pointer-events: none;
+  }
+
+  .testimonials::before {
+    width: 240px;
+    height: 240px;
+    top: -70px;
+    left: -50px;
+    background: rgba(168,36,60,0.25);
+  }
+
+  .testimonials::after {
+    width: 260px;
+    height: 260px;
+    bottom: -90px;
+    right: -50px;
+    background: rgba(224,161,0,0.22);
+  }
+
   .testimonial-card {
     position: relative;
+    z-index: 1;
     flex: 1 1 260px;
     overflow: hidden;
-    background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255,255,255,0.7);
+    background: linear-gradient(135deg, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.34) 100%);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.85);
     border-radius: 16px;
     padding: 26px 26px 22px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.9),
+      0 4px 20px rgba(0,0,0,0.08),
+      0 1px 2px rgba(0,0,0,0.04);
   }
 
   .testimonial-card::before {
     content: '\201C';
     position: absolute;
-    top: -30px;
-    left: 12px;
-    font-size: 110px;
+    top: 2px;
+    left: 14px;
+    font-size: 90px;
     font-weight: 800;
     line-height: 1;
     font-family: Georgia, serif;
-    color: rgba(168,36,60,0.07);
+    color: rgba(168,36,60,0.10);
     pointer-events: none;
   }
 
@@ -466,18 +525,14 @@
   }
 
   .founder-avatar {
-    width: 52px;
-    height: 52px;
+    width: 60px;
+    height: 60px;
     margin: 0 auto 18px;
     border-radius: 50%;
-    background: #A8243C;
-    color: #fff;
-    font-size: 20px;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(168,36,60,0.28);
+    object-fit: cover;
+    object-position: 50% 20%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px #E0E0E0, 0 4px 12px rgba(168,36,60,0.28);
   }
 
   .founder-blurb {
@@ -544,6 +599,10 @@
       border-radius: 16px;
     }
 
+    .screenshot-item {
+      width: 180px;
+    }
+
     .scroll-cue {
       display: none;
     }
@@ -564,7 +623,7 @@
 
 <div class="confetti-container" id="confetti-container" aria-hidden="true"></div>
 
-<a href="#proof-section" class="scroll-cue" id="scroll-cue" aria-label="Scroll to see more">
+<a href="#screenshots-section" class="scroll-cue" id="scroll-cue" aria-label="Scroll to see more">
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M2 5L7 10L12 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
@@ -636,6 +695,17 @@
 
 </div>
 
+<section class="screenshots-section" id="screenshots-section">
+  <div class="screenshots-strip">
+    <img class="screenshot-item" src="01-set-your-mission.jpg" alt="Set your mission before you scroll">
+    <img class="screenshot-item" src="02-pin-dynamic-island.jpg" alt="Pin your mission to the top of your screen">
+    <img class="screenshot-item" src="03-discover-focus-best.jpg" alt="Discover when you focus best">
+    <img class="screenshot-item" src="04-get-called-out.jpg" alt="Get called out when you drift">
+    <img class="screenshot-item" src="05-track-focus-score.jpg" alt="Track your focus score">
+    <img class="screenshot-item" src="06-count-opens-prevented.jpg" alt="Count every open you caught yourself on">
+  </div>
+</section>
+
 <section class="proof-section" id="proof-section">
 
   <div class="testimonials">
@@ -652,7 +722,7 @@
   </div>
 
   <div class="founder-note" id="founder-note">
-    <div class="founder-avatar">R</div>
+    <img class="founder-avatar" src="raj_pfp.jpg" alt="Raj Derangula">
     <p class="founder-blurb">During my time creating UGC content on Instagram and TikTok for brands, I noticed how much time I was losing to the exact apps I needed for work. I couldn't just delete them, so I built Airlock to help me use them with intention instead.</p>
     <p class="founder-sign">Raj, builder of Airlock</p>
   </div>
