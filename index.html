@@ -295,10 +295,25 @@
   }
 
   .video-stack {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
+  }
+
+  .video-stack::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    width: 360px;
+    height: 360px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168,36,60,0.20) 0%, transparent 70%);
+    filter: blur(20px);
   }
 
   .demo-video-wrap {
@@ -387,11 +402,23 @@
     50%       { transform: translateX(-50%) translateY(6px); }
   }
 
+  /* ── Section eyebrow ── */
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #A8243C;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
   /* ── Screenshots strip ── */
   .screenshots-section {
     max-width: 1120px;
     margin: 0 auto;
-    padding: 0 24px 8px;
+    padding: 8px 24px 8px;
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
   .screenshots-strip {
@@ -401,6 +428,8 @@
     scroll-snap-type: x mandatory;
     padding-bottom: 8px;
     scrollbar-width: none;
+    mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
   }
 
   .screenshots-strip::-webkit-scrollbar { display: none; }
@@ -411,7 +440,13 @@
     width: 220px;
     border-radius: 20px;
     display: block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.10);
+  }
+
+  .screenshot-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.14);
   }
 
   /* ── Social proof / founder section ── */
@@ -432,6 +467,7 @@
     padding: 36px;
     border-radius: 24px;
     background: linear-gradient(135deg, #EFEFF2 0%, #E6E6EA 100%);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
   .testimonials::before,
@@ -689,7 +725,8 @@
 
 </div>
 
-<section class="screenshots-section" id="screenshots-section">
+<section class="screenshots-section reveal-on-scroll" id="screenshots-section">
+  <p class="section-eyebrow">See it in action</p>
   <div class="screenshots-strip">
     <img class="screenshot-item" src="01-set-your-mission.jpg" alt="Set your mission before you scroll">
     <img class="screenshot-item" src="02-pin-dynamic-island.jpg" alt="Pin your mission to the top of your screen">
@@ -702,7 +739,8 @@
 
 <section class="proof-section" id="proof-section">
 
-  <div class="testimonials">
+  <p class="section-eyebrow">What early users are saying</p>
+  <div class="testimonials reveal-on-scroll">
     <div class="testimonial-card">
       <div class="testimonial-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
       <p class="testimonial-quote">"I had no idea how many times I was opening TikTok for no reason until I got Airlock."</p>
@@ -715,7 +753,8 @@
     </div>
   </div>
 
-  <div class="founder-note" id="founder-note">
+  <p class="section-eyebrow">From the founder</p>
+  <div class="founder-note reveal-on-scroll" id="founder-note">
     <img class="founder-avatar" src="raj_pfp.jpg" alt="Raj Derangula">
     <p class="founder-blurb">During my time creating UGC content on Instagram and TikTok for brands, I noticed how much time I was losing to the exact apps I needed for work. I couldn't just delete them, so I built Airlock to help me use them with intention instead.</p>
     <p class="founder-sign">Raj, Creator of Airlock</p>
@@ -753,22 +792,25 @@
   })();
 
   (function () {
-    const founderNote = document.getElementById('founder-note');
-    if (!founderNote) return;
-    if ('IntersectionObserver' in window) {
-      founderNote.style.opacity = '0';
-      founderNote.style.transform = 'translateY(16px)';
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            founderNote.style.opacity = '1';
-            founderNote.style.transform = 'translateY(0)';
-            io.unobserve(founderNote);
-          }
-        });
-      }, { threshold: 0.2 });
-      io.observe(founderNote);
-    }
+    const revealEls = document.querySelectorAll('.reveal-on-scroll');
+    if (!revealEls.length || !('IntersectionObserver' in window)) return;
+
+    revealEls.forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealEls.forEach((el) => io.observe(el));
   })();
 
   (function () {
