@@ -194,6 +194,47 @@
     line-height: 1.55;
   }
 
+  .interest-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 400px;
+    margin-bottom: 12px;
+  }
+
+  .interest-radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .interest-pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #6A6A72;
+    background: #fff;
+    border: 1.5px solid #E0E0E6;
+    border-radius: 100px;
+    padding: 7px 14px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .interest-radio:checked + .interest-pill {
+    background: #A8243C;
+    border-color: #A8243C;
+    color: #fff;
+  }
+
+  .interest-radio:focus-visible + .interest-pill {
+    outline: 2px solid #A8243C;
+    outline-offset: 2px;
+  }
+
   .form-row {
     display: flex;
     align-items: center;
@@ -686,12 +727,24 @@
       <span>Stay in the loop</span>
     </div>
 
-    <p class="notify-label">Get tips on staying focused, plus news on what's next.</p>
+    <p class="notify-label">Want early access to new features? Let us know what you're after.</p>
 
     <form id="waitlist-form" method="POST" action="https://formspree.io/f/xeerkroz">
       <input type="hidden" name="source" id="utm-source" value="">
       <input type="hidden" name="medium" id="utm-medium" value="">
       <input type="hidden" name="campaign" id="utm-campaign" value="">
+
+      <div class="interest-group" role="radiogroup" aria-label="What are you interested in?">
+        <input type="radio" name="interest" id="interest-beta" value="Beta access" class="interest-radio" checked>
+        <label for="interest-beta" class="interest-pill">Beta access</label>
+
+        <input type="radio" name="interest" id="interest-updates" value="Just updates" class="interest-radio">
+        <label for="interest-updates" class="interest-pill">Just updates</label>
+
+        <input type="radio" name="interest" id="interest-question" value="Have a question" class="interest-radio">
+        <label for="interest-question" class="interest-pill">Have a question</label>
+      </div>
+
       <div class="form-row">
         <input class="email-input" type="email" id="email" name="email" placeholder="your@email.com" required>
         <button type="submit" class="submit-btn">Subscribe</button>
@@ -850,6 +903,7 @@
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: document.getElementById('email').value,
+          interest: form.querySelector('input[name="interest"]:checked').value,
           source: document.getElementById('utm-source').value,
           medium: document.getElementById('utm-medium').value,
           campaign: document.getElementById('utm-campaign').value,
