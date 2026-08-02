@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Airlock: The focus app built for creators.</title>
+<meta name="apple-itunes-app" content="app-id=6773820396">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -70,7 +71,7 @@
     color: #A8243C;
   }
 
-  /* Launch countdown panel (mission-control style) */
+  /* Launch status panel (mission-control style) */
   .launch-panel {
     position: relative;
     background:
@@ -121,88 +122,6 @@
     font-weight: 800;
   }
 
-  .countdown-clock {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: clamp(4px, 3vw, 28px);
-    max-width: 320px;
-  }
-
-  .countdown-unit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .countdown-num {
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-size: clamp(19px, 5vw, 23px);
-    font-weight: 700;
-    color: #fff;
-    font-variant-numeric: tabular-nums;
-    line-height: 1;
-    letter-spacing: -0.5px;
-    text-shadow: 0 0 18px rgba(232,72,96,0.45), 0 0 2px rgba(255,255,255,0.3);
-  }
-
-  .countdown-unit-label {
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-size: 8.5px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-    margin-top: 6px;
-  }
-
-  .countdown-colon {
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-size: clamp(16px, 4vw, 20px);
-    font-weight: 700;
-    color: #E24C63;
-    line-height: 1;
-    padding-top: 1px;
-    flex-shrink: 0;
-    animation: colon-blink 1s steps(1) infinite;
-  }
-
-  @keyframes colon-blink {
-    0%, 49%   { opacity: 1; }
-    50%, 100% { opacity: 0.25; }
-  }
-
-  /* Radar scan line */
-  .launch-scan {
-    position: relative;
-    height: 2px;
-    margin-top: 14px;
-    border-radius: 100px;
-    background: rgba(255,255,255,0.07);
-    overflow: hidden;
-  }
-
-  .launch-scan::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -35%;
-    width: 35%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, #E24C63, transparent);
-    animation: scan 2.8s ease-in-out infinite;
-  }
-
-  @keyframes scan {
-    0%   { left: -35%; }
-    100% { left: 100%; }
-  }
-
-  .launch-panel.is-live .countdown-clock,
-  .launch-panel.is-live .launch-scan { display: none; }
-
   .launch-panel-live {
     display: none;
     align-items: center;
@@ -213,27 +132,6 @@
   }
 
   .launch-panel.is-live .launch-panel-live { display: flex; }
-
-  /* ── Confetti ── */
-  .confetti-container {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 9999;
-  }
-
-  .confetti-piece {
-    position: absolute;
-    top: -20px;
-    opacity: 0.9;
-    animation: confetti-fall linear forwards;
-  }
-
-  @keyframes confetti-fall {
-    0%   { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(110vh) rotate(600deg); }
-  }
 
   /* Headline */
   .headline {
@@ -558,26 +456,10 @@
     .launch-panel {
       padding: 12px 14px 14px;
     }
-
-    .countdown-unit-label {
-      font-size: 8px;
-    }
-  }
-
-  @media (max-width: 340px) {
-    .countdown-clock {
-      gap: 0;
-    }
-
-    .countdown-unit-label {
-      display: none;
-    }
   }
 </style>
 </head>
 <body>
-
-<div class="confetti-container" id="confetti-container" aria-hidden="true"></div>
 
 <div class="layout">
 
@@ -588,49 +470,27 @@
       <span class="app-label">Airlock</span>
     </div>
 
-    <div class="launch-panel" id="launch-panel">
+    <div class="launch-panel is-live" id="launch-panel">
       <div class="launch-panel-top">
         <span class="launch-panel-icon">🚀</span>
-        <span class="launch-panel-text">Launching on the App Store <strong>July 29th</strong></span>
+        <span class="launch-panel-text">Launched on the App Store <strong>July 31st</strong></span>
       </div>
-      <div class="countdown-clock" id="countdown-clock" aria-hidden="true">
-        <div class="countdown-unit">
-          <span class="countdown-num" id="cd-d">00</span>
-          <span class="countdown-unit-label">Days</span>
-        </div>
-        <span class="countdown-colon">:</span>
-        <div class="countdown-unit">
-          <span class="countdown-num" id="cd-h">00</span>
-          <span class="countdown-unit-label">Hrs</span>
-        </div>
-        <span class="countdown-colon">:</span>
-        <div class="countdown-unit">
-          <span class="countdown-num" id="cd-m">00</span>
-          <span class="countdown-unit-label">Min</span>
-        </div>
-        <span class="countdown-colon">:</span>
-        <div class="countdown-unit">
-          <span class="countdown-num" id="cd-s">00</span>
-          <span class="countdown-unit-label">Sec</span>
-        </div>
-      </div>
-      <div class="launch-scan"></div>
       <div class="launch-panel-live">🎉 Airlock is live on the App Store</div>
     </div>
 
     <h1 class="headline">The focus app<br>built for creators.</h1>
-    <p class="subheadline">Open your socials with intention. Stay focused while you create. Airlock lands on the App Store July 29th, 2026.</p>
+    <p class="subheadline">Open your socials with intention. Stay focused while you create. Airlock launched on the App Store July 31st, 2026.</p>
 
     <div class="beta-cta-wrap">
-      <a class="beta-btn" href="https://testflight.apple.com/join/57kpjCH9" target="_blank" rel="noopener noreferrer">
+      <a class="beta-btn" href="https://apps.apple.com/us/app/airlock-focus-for-creators/id6773820396" target="_blank" rel="noopener noreferrer">
         <span class="beta-btn-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
             <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.78 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/>
           </svg>
         </span>
         <span class="beta-btn-text">
-          <span class="beta-btn-title">Try Airlock on TestFlight</span>
-          <span class="beta-btn-sub">Free · iOS · Get in before the App Store launch</span>
+          <span class="beta-btn-title">Download on the App Store</span>
+          <span class="beta-btn-sub">Free to download · iOS</span>
         </span>
         <svg class="beta-btn-arrow" width="16" height="16" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M2.5 10.5L10.5 2.5M10.5 2.5H5.5M10.5 2.5V7.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -642,7 +502,7 @@
       <span>Stay in the loop</span>
     </div>
 
-    <p class="notify-label">Be first to know the moment Airlock hits the App Store, plus major updates after that.</p>
+    <p class="notify-label">Get notified about major updates and new features.</p>
 
     <form id="waitlist-form" method="POST" action="https://formspree.io/f/xeerkroz">
       <input type="hidden" name="source" id="utm-source" value="">
@@ -682,55 +542,6 @@
 </div>
 
 <script>
-  (function () {
-    const launchDate = new Date('2026-07-29T12:00:00-04:00'); // 12pm ET (EDT)
-    const panel = document.getElementById('launch-panel');
-    const elD = document.getElementById('cd-d');
-    const elH = document.getElementById('cd-h');
-    const elM = document.getElementById('cd-m');
-    const elS = document.getElementById('cd-s');
-    const pad = (n) => String(n).padStart(2, '0');
-
-    function launchConfetti() {
-      const container = document.getElementById('confetti-container');
-      const colors = ['#A8243C', '#E24C63', '#1A1A1A', '#F4C430', '#FFFFFF'];
-      const count = 140;
-      for (let i = 0; i < count; i++) {
-        const piece = document.createElement('div');
-        piece.className = 'confetti-piece';
-        const size = 6 + Math.random() * 6;
-        piece.style.left = (Math.random() * 100) + 'vw';
-        piece.style.width = size + 'px';
-        piece.style.height = (size * 1.6) + 'px';
-        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-        piece.style.animationDuration = (2.5 + Math.random() * 2) + 's';
-        piece.style.animationDelay = (Math.random() * 1.2) + 's';
-        container.appendChild(piece);
-      }
-      setTimeout(() => { container.innerHTML = ''; }, 5000);
-    }
-
-    function tick() {
-      const diff = launchDate - new Date();
-      if (diff <= 0) {
-        if (!panel.classList.contains('is-live')) {
-          panel.classList.add('is-live');
-          launchConfetti();
-        }
-        clearInterval(timer);
-        return;
-      }
-      const totalSeconds = Math.floor(diff / 1000);
-      elD.textContent = pad(Math.floor(totalSeconds / 86400));
-      elH.textContent = pad(Math.floor((totalSeconds % 86400) / 3600));
-      elM.textContent = pad(Math.floor((totalSeconds % 3600) / 60));
-      elS.textContent = pad(totalSeconds % 60);
-    }
-
-    tick();
-    const timer = setInterval(tick, 1000);
-  })();
-
   (function () {
     const params = new URLSearchParams(window.location.search);
     let stored = {};
